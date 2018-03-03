@@ -1,5 +1,5 @@
 function love.load()
-  image = love.graphics.newImage('image.png')
+  image = love.graphics.newImage('resources/image.png')
 end
 
 function love.update(dt)
