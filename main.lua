@@ -2,9 +2,8 @@ Object = require 'lib/classic/classic'
 require 'objects/Circle'
 
 function love.load()
-  circle = Circle(400, 300, 50)
+  circle = Circle(150, 100, 50)
   hyperCircle = HyperCircle(400, 300, 50, 120, 10)
-  --print(hyperCircle:is(Circle))
   
   --[[
   local object_files = {}
@@ -19,10 +18,9 @@ function love.update(dt)
 end
 
 function love.draw()
-  --circle:draw()
+  circle:draw()
   hyperCircle:draw()
 end
-
 
 --[[
 function love.update(dt)
