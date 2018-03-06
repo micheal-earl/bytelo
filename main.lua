@@ -1,5 +1,6 @@
 Object = require 'lib/classic/classic'
 Input = require 'lib/input/Input'
+Timer = require 'lib/hum/timer/time'
 require 'objects/Circle'
 
 function love.load()
