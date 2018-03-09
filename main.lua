@@ -10,7 +10,7 @@ function love.load()
   input:bind('up', 'uArrow')
   input:bind('down', 'dArrow')
   
-  circle = Circle(150, 100, 50)
+  circle = Circle(50, 50, 25)
   --hyperCircle = HyperCircle(400, 300, 50, 120, 10)
   
   --[[
@@ -22,17 +22,18 @@ function love.load()
 end
 
 function love.update(dt)
-  if input:pressed('rArrow') then circle.x = circle.x + 100 end
-  if input:pressed('lArrow') then circle.x = circle.x - 100 end
-  if input:pressed('uArrow') then circle.y = circle.y - 100 end
-  if input:pressed('dArrow') then circle.y = circle.y + 100 end
+  if input:pressed('rArrow') then circle.x = circle.x + 50 end
+  if input:pressed('lArrow') then circle.x = circle.x - 50 end
+  if input:pressed('uArrow') then circle.y = circle.y - 50 end
+  if input:pressed('dArrow') then circle.y = circle.y + 50 end
   --if input:released('mouse1') then print('released') end
   --if input:down('mouse1', 0.5)     then print('down')     end
+  
+  
 end
 
 function love.draw()
   circle:draw()
-  --hyperCircle:draw()
 end
 
 --[[
