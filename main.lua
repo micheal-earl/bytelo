@@ -6,6 +6,10 @@ require 'objects/PolyRoom'
 require 'objects/RectRoom'
 
 function love.load()
+  -- Randomize our seed so that random functions
+  -- Are different every time the game is run
+  love.math.randomSeed(os.time())
+  
   input = Input()
   input:bind('f1', 'f1')
   input:bind('f2', 'f2')
