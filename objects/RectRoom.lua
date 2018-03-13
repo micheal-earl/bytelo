@@ -1,4 +1,5 @@
 Object = require '../lib/classic/classic'
+Timer = require '../lib/hump/timer/timer'
 
 RectRoom = Object:extend()
 

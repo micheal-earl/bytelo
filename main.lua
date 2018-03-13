@@ -1,6 +1,10 @@
 Object = require 'lib/classic/classic'
 Input = require 'lib/input/Input'
 Timer = require 'lib/hump/timer/timer'
+require 'lib/utils'
+require 'objects/GameObject'
+require 'objects/Area'
+require 'objects/Circle'
 require 'objects/CircleRoom'
 require 'objects/PolyRoom'
 require 'objects/RectRoom'
@@ -8,12 +12,14 @@ require 'objects/RectRoom'
 function love.load()
   -- Randomize our seed so that random functions
   -- Are different every time the game is run
-  love.math.randomSeed(os.time())
+  love.math.random(os.time())
   
   input = Input()
   input:bind('f1', 'f1')
   input:bind('f2', 'f2')
   input:bind('f3', 'f3')
+  
+  circle_object = Circle(400, 300, 100)
   
   current_room = nil
   
@@ -29,6 +35,7 @@ end
 
 function love.draw()
   if current_room then current_room:draw() end
+  circle_object:draw()
 end
 
 function gotoRoom(room_type, ...)

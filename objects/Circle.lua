@@ -1,19 +1,19 @@
 Object = require '../lib/classic/classic'
 Timer = require '../lib/hump/timer/timer'
+require '../objects/GameObject'
 
-CircleRoom = Object:extend()
+Circle = GameObject:extend()
 
-function CircleRoom:new(x, y, radius)
-  self.x = x or 400
-  self.y = y or 300
+function Circle:new(x, y, radius, opts)
+  Circle.super.new(self, 0, x, y, opts)
   self.radius = radius or 100
   self.creation_time = 0
 end
 
-function CircleRoom:update(dt)
+function Circle:update(dt)
   
 end
 
-function CircleRoom:draw()
+function Circle:draw()
   love.graphics.circle("fill", self.x, self.y, self.radius)
 end

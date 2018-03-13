@@ -2,7 +2,7 @@
 -- Generate a random ID with hopefull no overlaps
 function UUID()
     local fn = function(x)
-        local r = math.random(16) - 1
+        local r = love.math.random(16) - 1
         r = (x == "x") and (r + 1) or (r % 4) + 9
         return ("0123456789abcdef"):sub(r, r)
     end
