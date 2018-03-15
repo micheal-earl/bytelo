@@ -10,7 +10,10 @@ require 'objects/CircleRoom'
 require 'objects/PolyRoom'
 require 'objects/RectRoom'
 
-function love.load()
+function love.load(arg) -- take arg for debug
+  -- this line enables debugging in zbs
+  if arg[#arg] == "-debug" then require("mobdebug").start() end
+  
   -- Randomize our seed so that random functions
   -- Are different every time the game is run
   love.math.random(os.time())
@@ -38,6 +41,7 @@ end
 
 function love.update(dt)
   timer:update(dt)
+  area:update(dt)
   if current_room then current_room:update(dt) end
   
   if input:pressed('f1') then gotoRoom('RectRoom')   end
