@@ -4,8 +4,8 @@ require '../objects/GameObject'
 
 Circle = GameObject:extend()
 
-function Circle:new(x, y, radius, opts)
-  Circle.super.new(self, 0, x, y, opts)
+function Circle:new(area, x, y, radius, opts)
+  Circle.super.new(self, area, x, y, opts)
   self.radius = radius or 100
   self.creation_time = 0
 end

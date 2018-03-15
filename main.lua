@@ -4,6 +4,7 @@ Timer = require 'lib/hump/timer/timer'
 require 'lib/utils'
 require 'objects/GameObject'
 require 'objects/Area'
+require 'objects/Stage'
 require 'objects/Circle'
 require 'objects/CircleRoom'
 require 'objects/PolyRoom'
@@ -19,7 +20,13 @@ function love.load()
   input:bind('f2', 'f2')
   input:bind('f3', 'f3')
   
-  circle_object = Circle(400, 300, 100)
+  --circle_object = Circle(400, 300, 100)
+  room = Stage()
+  area = Area(room)
+  
+  area:addGameObject('Circle', 400, 300, 50)
+  timer:after(2, function() area.
+  
   
   current_room = nil
   
@@ -35,7 +42,9 @@ end
 
 function love.draw()
   if current_room then current_room:draw() end
-  circle_object:draw()
+  area:draw()
+  
+  --circle_object:draw()
 end
 
 function gotoRoom(room_type, ...)
