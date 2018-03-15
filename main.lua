@@ -15,6 +15,8 @@ function love.load()
   -- Are different every time the game is run
   love.math.random(os.time())
   
+  timer = Timer()
+  
   input = Input()
   input:bind('f1', 'f1')
   input:bind('f2', 'f2')
@@ -24,8 +26,10 @@ function love.load()
   room = Stage()
   area = Area(room)
   
+
   area:addGameObject('Circle', 400, 300, 50)
-  timer:after(2, function() area.
+  timer:after(2, function() area.game_objects[1].dead = true end)
+  timer:after(2, function() print(area.game_objects[1].dead) end)
   
   
   current_room = nil
@@ -33,6 +37,7 @@ function love.load()
 end
 
 function love.update(dt)
+  timer:update(dt)
   if current_room then current_room:update(dt) end
   
   if input:pressed('f1') then gotoRoom('RectRoom')   end
