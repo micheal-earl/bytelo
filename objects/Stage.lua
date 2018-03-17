@@ -6,15 +6,17 @@ require '../objects/Circle'
 Stage = Object:extend()
 
 function Stage:new()
-  area = Area()
-  circle = Circle()
+  area = Area(self)
+  area:addGameObject('Circle', 400, 300, 50)
+  area:addGameObject('Circle', 100, 100, 30)
+  area:addGameObject('Circle', 700, 500, 30)
   
 end
 
 function Stage:update(dt)
-  
+  area:update(dt)
 end
 
 function Stage:draw()
-  love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+  area:draw()
 end

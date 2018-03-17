@@ -27,11 +27,11 @@ function love.load(arg) -- take arg for debug
   
   --circle_object = Circle(400, 300, 100)
   room = Stage()
-  area = Area(room)
   
-
-  area:addGameObject('Circle', 400, 300, 50)
-  timer:after(2, function() area.game_objects[1].dead = true end)
+  print(love.math.random(1, 4))
+  
+  --area:addGameObject('Circle', 400, 300, 50)
+  --timer:after(2, function() area.game_objects[1].dead = true end)
   timer:after(2, function() print(area.game_objects[1].dead) end)
   
   
@@ -41,7 +41,7 @@ end
 
 function love.update(dt)
   timer:update(dt)
-  area:update(dt)
+  room:update(dt)
   if current_room then current_room:update(dt) end
   
   if input:pressed('f1') then gotoRoom('RectRoom')   end
@@ -51,7 +51,7 @@ end
 
 function love.draw()
   if current_room then current_room:draw() end
-  area:draw()
+  room:draw()
   
   --circle_object:draw()
 end
