@@ -12,7 +12,8 @@ function Stage:new()
   
   timer:after(0, function(f)
     area.game_objects[1].dead = true
-    area:addGameObject('Circle', love.math.random(0, 650), love.math.random(0, 450), 50)
+    area:addGameObject('Circle', love.math.random(0, 650), 
+                                 love.math.random(0, 450), 50)
     timer:after(love.math.random(4), f) -- recursively call the anonymous function
   end)
 end

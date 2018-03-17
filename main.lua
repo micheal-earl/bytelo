@@ -2,23 +2,26 @@ Object = require 'lib/classic/classic'
 Input = require 'lib/input/Input'
 Timer = require 'lib/hump/timer/timer'
 require 'lib/utils'
+
 require 'objects/GameObject'
 require 'objects/Area'
-require 'objects/Stage'
 require 'objects/Circle'
-require 'objects/CircleRoom'
-require 'objects/PolyRoom'
-require 'objects/RectRoom'
+require 'objects/Rect'
+
+require 'rooms/Stage'
+require 'rooms/CircleRoom'
+require 'rooms/PolyRoom'
+require 'rooms/RectRoom'
 
 function love.load(arg) -- take arg for debug
   -- this line enables debugging in zbs
   if arg[#arg] == "-debug" then require("mobdebug").start() end
-  
+
   -- Randomize our seed so that random functions
   -- Are different every time the game is run
   love.math.setRandomSeed(os.time())
   
-  -- instantiate timer lib into variable
+  -- instantiate timer lib into variable`
   timer = Timer()
   
   -- instantiate input lib into variable
@@ -27,6 +30,7 @@ function love.load(arg) -- take arg for debug
   input:bind('f2', 'f2key')
   input:bind('f3', 'f3key')
   input:bind('f4', 'f4key')
+  input:bind('d' ,  'dkey')
   
   -- initialize our current room to nil
   current_room = nil
@@ -43,6 +47,10 @@ function love.update(dt)
   if input:pressed('f2key') then gotoRoom('PolyRoom')   end
   if input:pressed('f3key') then gotoRoom('CircleRoom') end
   if input:pressed('f4key') then gotoRoom('Stage') end
+
+  if input:pressed('dkey') then 
+    current_room.area.game_objects[#current_room.area.game_objects].dead = true 
+  end
 end
 
 function love.draw()
