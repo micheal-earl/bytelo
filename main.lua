@@ -25,18 +25,9 @@ function love.load(arg) -- take arg for debug
   input:bind('f2', 'f2')
   input:bind('f3', 'f3')
   
-  --circle_object = Circle(400, 300, 100)
   room = Stage()
   
-  print(love.math.random(1, 4))
-  
-  --area:addGameObject('Circle', 400, 300, 50)
-  --timer:after(2, function() area.game_objects[1].dead = true end)
-  timer:after(2, function() print(area.game_objects[1].dead) end)
-  
-  
   current_room = nil
-  
 end
 
 function love.update(dt)
