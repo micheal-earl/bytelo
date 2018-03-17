@@ -16,35 +16,37 @@ function love.load(arg) -- take arg for debug
   
   -- Randomize our seed so that random functions
   -- Are different every time the game is run
-  love.math.random(os.time())
+  love.math.setRandomSeed(os.time())
   
+  -- instantiate timer lib into variable
   timer = Timer()
   
+  -- instantiate input lib into variable
   input = Input()
-  input:bind('f1', 'f1')
-  input:bind('f2', 'f2')
-  input:bind('f3', 'f3')
+  input:bind('f1', 'f1key') -- define our inputs map key -> name
+  input:bind('f2', 'f2key')
+  input:bind('f3', 'f3key')
+  input:bind('f4', 'f4key')
   
-  room = Stage()
-  
+  -- initialize our current room to nil
   current_room = nil
+  
 end
 
 function love.update(dt)
   timer:update(dt)
-  room:update(dt)
+  
   if current_room then current_room:update(dt) end
   
-  if input:pressed('f1') then gotoRoom('RectRoom')   end
-  if input:pressed('f2') then gotoRoom('PolyRoom')   end
-  if input:pressed('f3') then gotoRoom('CircleRoom') end
+  -- change our current room depengin on f key pressed
+  if input:pressed('f1key') then gotoRoom('RectRoom')   end
+  if input:pressed('f2key') then gotoRoom('PolyRoom')   end
+  if input:pressed('f3key') then gotoRoom('CircleRoom') end
+  if input:pressed('f4key') then gotoRoom('Stage') end
 end
 
 function love.draw()
   if current_room then current_room:draw() end
-  room:draw()
-  
-  --circle_object:draw()
 end
 
 function gotoRoom(room_type, ...)
