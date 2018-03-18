@@ -34,7 +34,6 @@ function love.load(arg) -- take arg for debug
   
   -- initialize our current room to nil
   current_room = nil
-  
 end
 
 function love.update(dt)

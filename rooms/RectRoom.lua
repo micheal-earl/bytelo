@@ -6,28 +6,30 @@ require '../objects/Circle'
 RectRoom = Object:extend()
 
 function RectRoom:new()
-  timer = Timer()
-  area = Area(self)
-  
-  for i = 1, 10 do
-    area:addGameObject('Rect', 
-                       love.math.random(800), 
-                       love.math.random(600), 
-                       love.math.random(400), 
-                       love.math.random(400))
-  end
+  self.timer = Timer()
+  self.area = Area(self)
 
+  self:addObjects()
 end
 
 function RectRoom:update(dt)
-  timer:update(dt)
-  area:update(dt)
---[[
-  if input:pressed('dkey') then 
-    --area.gameObjects[#gameObjects].dead = true 
-  end]]
+  self.timer:update(dt)
+  self.area:update(dt)
+  if #self.area.game_objects < 1 then
+    self:addObjects()
+  end
 end
 
 function RectRoom:draw()
-  area:draw()
+  self.area:draw()
+end
+
+function RectRoom:addObjects()
+  for i = 1, 10 do
+    self.area:addGameObject('Rect', 
+                            love.math.random(550), 
+                            love.math.random(450), 
+                            love.math.random(600), 
+                            love.math.random(600))
+  end
 end

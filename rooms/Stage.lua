@@ -6,23 +6,22 @@ require '../objects/Circle'
 Stage = Object:extend()
 
 function Stage:new()
-  timer = Timer();
-  area = Area(self)
-  area:addGameObject('Circle', 400, 300, 50)
+  self.timer = Timer();
+  self.area = Area(self)
   
-  timer:after(0, function(f)
-    area.game_objects[1].dead = true
-    area:addGameObject('Circle', love.math.random(0, 650), 
+  self.timer:after(0, function(f)
+    --self.area.game_objects[1].dead = true
+    self.area:addGameObject('Circle', love.math.random(0, 650), 
                                  love.math.random(0, 450), 50)
-    timer:after(love.math.random(4), f) -- recursively call the anonymous function
+    self.timer:after(random(0, 4), f) -- recursively call the anonymous function
   end)
 end
 
 function Stage:update(dt)
-  timer:update(dt)
-  area:update(dt)
+  self.timer:update(dt)
+  self.area:update(dt)
 end
 
 function Stage:draw()
-  area:draw()
+  self.area:draw()
 end

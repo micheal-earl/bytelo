@@ -12,7 +12,7 @@ function Rect:new(area, x, y, width, height, opts)
 end
 
 function Rect:update(dt)
-  
+  Rect.super.update(self, dt)
 end
 
 function Rect:draw()

@@ -8,3 +8,9 @@ function UUID()
     end
     return (("xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"):gsub("[xy]", fn))
 end
+
+-- Generate a random number between two values that
+-- includes all non-integer values
+function random(min, max)
+    return love.math.random()*(max - min) + min
+end
