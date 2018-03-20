@@ -8,7 +8,6 @@ require 'objects/Area'
 require 'objects/Circle'
 require 'objects/Rect'
 
-require 'rooms/Stage'
 require 'rooms/CircleRoom'
 require 'rooms/PolyRoom'
 require 'rooms/RectRoom'
@@ -29,7 +28,6 @@ function love.load(arg) -- take arg for debug
   input:bind('f1', 'f1key') -- define our inputs map key -> name
   input:bind('f2', 'f2key')
   input:bind('f3', 'f3key')
-  input:bind('f4', 'f4key')
   input:bind('d' ,  'dkey')
   
   -- initialize our current room to nil
@@ -45,7 +43,6 @@ function love.update(dt)
   if input:pressed('f1key') then gotoRoom('RectRoom')   end
   if input:pressed('f2key') then gotoRoom('PolyRoom')   end
   if input:pressed('f3key') then gotoRoom('CircleRoom') end
-  if input:pressed('f4key') then gotoRoom('Stage') end
 
   if input:pressed('dkey') then 
     current_room.area.game_objects[#current_room.area.game_objects].dead = true 

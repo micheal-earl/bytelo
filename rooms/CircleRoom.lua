@@ -1,19 +1,27 @@
 Object = require '../lib/classic/classic'
 Timer = require '../lib/hump/timer/timer'
+require '../objects/Area'
+require '../objects/Circle'
 
 CircleRoom = Object:extend()
 
-function CircleRoom:new(x, y, radius)
-  self.x = x or 400
-  self.y = y or 300
-  self.radius = radius or 100
-  self.creation_time = 0
+function CircleRoom:new()
+  self.timer = Timer();
+  self.area = Area(self)
+  
+  self.timer:after(0, function(f)
+    --self.area.game_objects[1].dead = true
+    self.area:addGameObject('Circle', love.math.random(0, 650), 
+                                 love.math.random(0, 450), 50)
+    self.timer:after(random(0, 4), f) -- recursively call the anonymous function
+  end)
 end
 
 function CircleRoom:update(dt)
-  
+  self.timer:update(dt)
+  self.area:update(dt)
 end
 
 function CircleRoom:draw()
-  love.graphics.circle("fill", self.x, self.y, self.radius)
+  self.area:draw()
 end

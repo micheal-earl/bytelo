@@ -27,8 +27,8 @@ end
 function RectRoom:addObjects()
   for i = 1, 10 do
     self.area:addGameObject('Rect', 
-                            love.math.random(550), 
-                            love.math.random(450), 
+                            love.math.random(800), 
+                            love.math.random(600), 
                             love.math.random(600), 
                             love.math.random(600))
   end
