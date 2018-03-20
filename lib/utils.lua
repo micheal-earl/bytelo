@@ -12,5 +12,9 @@ end
 -- Generate a random number between two values that
 -- includes all non-integer values
 function random(min, max)
-    return love.math.random()*(max - min) + min
+    if not max then
+        return love.math.random()*min
+    else
+        return love.math.random()*(max - min) + min
+    end
 end
