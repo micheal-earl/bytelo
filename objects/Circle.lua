@@ -12,7 +12,6 @@ function Circle:new(area, x, y, radius, opts)
   self.timer = Timer()
 
   self.timer:after(random(2, 4), function() self.dead = true end)
-
 end
 
 function Circle:update(dt)

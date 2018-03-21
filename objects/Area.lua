@@ -1,6 +1,7 @@
 Object = require '../lib/classic/classic'
 Timer = require '../lib/hump/timer/timer'
 moses = require '../lib/moses/moses'
+require '../lib/utils'
 
 Area = Object:extend()
 
@@ -20,7 +21,7 @@ function Area:update(dt)
       end
   end
 
-  self:queryCircleArea(0, 0, 0, {'Circle', 'Rect', 'Meme'})
+  self:queryCircleArea(0, 0, 400, {'Circle', 'Rect', 'Meme'})
 end
 
 function Area:draw()
@@ -38,9 +39,39 @@ function Area:addGameObject(game_object_type, x, y, opts)
 end
 
 function Area:queryCircleArea(x, y, radius, object_types)
+  -- Create empty table for output
+  local output = {}
+  -- for every game_object in the table game_objects
   for _, game_object in ipairs(self.game_objects) do
+    -- if that game_object.class property is equal to one of
+    -- the object types we are comparing to
     if moses.any(object_types, game_object.class) then
-      print(game_object.class)
+      -- Call the utility function distance() and store the result
+      -- in a local variable distance
+      local distance = distance(x, y, game_object.x, game_object.y)
+      -- if the distance between the two points is within the radius
+      -- we are checking then add the game_object to our output table
+      if distance <= radius then
+        table.insert(output, game_object)
+      end
     end
   end
+  -- return our output table with the newly added objects
+  return output
+end
+
+function Area:getClosestObject(x, y, radius, object_types)
+  -- call our query function to find every object fitting
+  -- object_types in our area and store them in a table
+  local objects = self:queryCircleArea(x, y, radius, object_types)
+  -- Sort our table so that objects with the lowest distance
+  -- are first in the table
+  table.sort(objects, function(a, b)
+    local da = distance(x, y, a.x, a.y)
+    local db = distance(x, y, b.x, b.y)
+    return da < db
+  end)
+  -- return the first object in the table as it is the shortest
+  -- distance
+  return objects[1]
 end

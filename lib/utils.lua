@@ -18,3 +18,8 @@ function random(min, max)
         return love.math.random()*(max - min) + min
     end
 end
+
+-- Compute the difference between two points on a coordinate grid
+function distance(x1, y1, x2, y2)
+    return math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))
+end
