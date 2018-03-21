@@ -20,8 +20,6 @@ function Area:update(dt)
         table.remove(self.game_objects, i) 
       end
   end
-
-  self:queryCircleArea(0, 0, 400, {'Circle', 'Rect', 'Meme'})
 end
 
 function Area:draw()
