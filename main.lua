@@ -1,6 +1,7 @@
 Object = require 'lib/classic/classic'
 Input = require 'lib/input/Input'
-Timer = require 'lib/hump/timer/timer'
+Timer = require 'lib/hump/timer'
+Camera = require 'lib/hump/camera'
 require 'lib/utils'
 
 require 'objects/GameObject'
