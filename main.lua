@@ -1,10 +1,12 @@
-Object = require 'lib/classic/classic'
-Input = require 'lib/input/Input'
-Timer = require 'lib/hump/timer'
-Camera = require 'lib/hump/camera'
+local Object = require 'lib/classic/classic'
+local Input = require 'lib/input/Input'
+local Timer = require 'lib/hump/timer'
+local Camera = require 'lib/hump/camera'
+local Bump = require 'lib/bump/bump'
 require 'lib/utils'
 
 require 'objects/GameObject'
+require 'objects/Player'
 require 'objects/Area'
 require 'objects/Circle'
 require 'objects/Rect'
@@ -32,6 +34,11 @@ function love.load(arg) -- take arg for debug
   input:bind('f3', 'f3key')
   input:bind('f4', 'f4key')
   input:bind('d' ,  'dkey')
+
+  input:bind('up', 'upkey')
+  input:bind('down', 'downkey')
+  input:bind('left', 'leftkey')
+  input:bind('right', 'rightkey')
   
   -- initialize our current room to nil
   current_room = nil

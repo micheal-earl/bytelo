@@ -1,5 +1,5 @@
-Object = require '../lib/classic/classic'
-Timer = require '../lib/hump/timer'
+local Object = require '../lib/classic/classic'
+local Timer = require '../lib/hump/timer'
 require '../objects/Area'
 require '../objects/Circle'
 
@@ -27,8 +27,8 @@ end
 function RectRoom:addObjects()
   for i = 1, 10 do
     self.area:addGameObject('Rect', 
-                            love.math.random(800), 
-                            love.math.random(600), 
+                            love.math.random(window_width), 
+                            love.math.random(window_height), 
                             love.math.random(600), 
                             love.math.random(600))
   end

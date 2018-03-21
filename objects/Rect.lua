@@ -1,4 +1,4 @@
-Object = require '../lib/classic/classic'
+local Object = require '../lib/classic/classic'
 Timer = require '../lib/hump/timer'
 require '../objects/GameObject'
 

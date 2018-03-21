@@ -1,5 +1,5 @@
-Object = require '../lib/classic/classic'
-Timer = require '../lib/hump/timer'
+local Object = require '../lib/classic/classic'
+local Timer = require '../lib/hump/timer'
 require '../lib/utils'
 
 GameObject = Object:extend()

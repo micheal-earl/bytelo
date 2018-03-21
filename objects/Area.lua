@@ -1,6 +1,6 @@
-Object = require '../lib/classic/classic'
-Timer = require '../lib/hump/timer'
-moses = require '../lib/moses/moses'
+local Object = require '../lib/classic/classic'
+local Timer = require '../lib/hump/timer'
+local moses = require '../lib/moses/moses'
 require '../lib/utils'
 
 Area = Object:extend()
@@ -11,8 +11,6 @@ function Area:new(room)
 end
 
 function Area:update(dt)
-  --for _, game_object in ipairs(self.game_objects) do game_object:update(dt) end
-  
   for i = #self.game_objects, 1, -1 do
       local game_object = self.game_objects[i]
       game_object:update(dt)
