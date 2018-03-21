@@ -32,6 +32,9 @@ function love.load(arg) -- take arg for debug
   
   -- initialize our current room to nil
   current_room = nil
+
+  circle = Circle()
+  print(circle:is(Rect))
 end
 
 function love.update(dt)
