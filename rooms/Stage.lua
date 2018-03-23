@@ -6,12 +6,13 @@ function Stage:new()
   --self.input = Input()
   --self.input:bind('f', 'fkey')
   self.area = Area(self)
+  self.area:addPhysicsWorld()
   player = self.area:addGameObject('Player', window_width/2, window_height/2)
 
 end
 
 function Stage:update(dt)
-  self.area:update()
+  self.area:update(dt)
   if input:pressed('f4') then
     self.area.game_objects[#self.area.game_objects].dead = true
   end

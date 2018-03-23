@@ -1,16 +1,17 @@
 local Object = require '../lib/classic/classic'
-local Timer = require '../lib/hump/timer'
-local moses = require '../lib/moses/moses'
 --require '../lib/utils'
 
 Area = Object:extend()
 
 function Area:new(room)
+  self.world = physics.newWorld()
   self.room = room
   self.game_objects = {}
 end
 
 function Area:update(dt)
+  --if self.world then self.world:update(dt) end
+
   for i = #self.game_objects, 1, -1 do
     local game_object = self.game_objects[i]
     if game_object.dead then 
@@ -21,7 +22,8 @@ function Area:update(dt)
 end
 
 function Area:draw()
-  --table.remove(self.game_objects, #self.game_objects)
+  --if self.world then self.world:draw() end
+
   for _, game_object in ipairs(self.game_objects) do game_object:draw(dt) end
 end
 
@@ -33,6 +35,10 @@ function Area:addGameObject(game_object_type, x, y, opts)
 
   table.insert(self.game_objects, game_object)
   return game_object
+end
+
+function Area:addPhysicsWorld()
+  self.world = physics.newWorld()
 end
 
 function Area:queryCircleArea(x, y, radius, object_types)
