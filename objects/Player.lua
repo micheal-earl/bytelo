@@ -1,6 +1,4 @@
 local Object = require '../lib/classic/classic'
-local Timer = require '../lib/hump/timer'
-require '../lib/utils'
 
 Player = GameObject:extend()
 
@@ -10,8 +8,56 @@ end
 
 function Player:update(dt)
   Player.super.update(self, dt)
+  self:handleInput(dt)
 end
 
 function Player:draw()
-  love.graphics.circle('line', self.x, self.y, 25)
+  love.graphics.circle('line', self.x, self.y, 20)
+end
+
+function Player:handleInput(dt)
+  local spd = 5
+  local dash_spd = 0.1
+
+  if input:down('up') then 
+    self.y = self.y - spd
+    io.write(self.x.." "..self.y.."\n")
+    print(self:outOfBounds())
+  end
+  if input:down('down') then 
+    self.y = self.y + spd 
+    io.write(self.x.." "..self.y.."\n")
+  end
+  if input:down('left') then 
+    self.x = self.x - spd 
+    io.write(self.x.." "..self.y.."\n")
+  end
+  if input:down('right') then 
+    self.x = self.x + spd 
+    io.write(self.x.." "..self.y.."\n")
+  end
+
+  if input:sequence('up', 0.5, 'up') then
+    local t = self.y
+    timer:tween(dash_spd, self, {y = t - 80})
+  end
+  if input:sequence('down', 0.5, 'down') then
+    local t = self.y
+    timer:tween(dash_spd, self, {y = t + 80})
+  end
+  if input:sequence('left', 0.5, 'left') then
+    local t = self.x
+    timer:tween(dash_spd, self, {x = t - 80})
+  end
+  if input:sequence('right', 0.5, 'right') then
+    local t = self.x
+    timer:tween(dash_spd, self, {x = t + 80})
+  end
+end
+
+function Player:outOfBounds()
+  if (self.y > window_height or self.y < 0) and (self.x > window_width or self.x < 0) then
+    return true
+  end
+  return (self.y > window_height or self.y < 0) and (self.x > window_width or self.x < 0)
 end

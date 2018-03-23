@@ -3,7 +3,6 @@ local Input = require 'lib/input/input'
 local Timer = require 'lib/hump/timer'
 local Camera = require 'lib/hump/camera'
 local Bump = require 'lib/bump/bump'
-
 require "init"
 
 function love.load(arg) -- take arg for debug
@@ -13,16 +12,23 @@ function love.load(arg) -- take arg for debug
   -- Randomize our seed so that random functions
   -- Are different every time the game is run
   love.math.setRandomSeed(os.time())
-  
-  -- instantiate timer lib into variable`
+
+  -- instantiate libs into variables
   timer = Timer()
-  
-  -- instantiate input lib into variable
+  camera = Camera()
+  physics = Bump
   input = Input()
-  input:bind('up', 'upkey')
-  input:bind('down', 'downkey')
-  input:bind('left', 'leftkey')
-  input:bind('right', 'rightkey')
+
+  -- set up our keybindings
+  input:bind('f4'    ,   'f4')
+  input:bind('up'   ,    'up')
+  input:bind('down' ,  'down')
+  input:bind('left' ,  'left')
+  input:bind('right', 'right')
+  input:bind('w'    ,    'up')
+  input:bind('a'    ,  'left')
+  input:bind('s'    ,  'down')
+  input:bind('d'    , 'right')
   
   -- initialize our current room to nil
   current_room = nil

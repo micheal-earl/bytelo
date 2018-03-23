@@ -1,7 +1,7 @@
 local Object = require '../lib/classic/classic'
 local Timer = require '../lib/hump/timer'
 local moses = require '../lib/moses/moses'
-require '../lib/utils'
+--require '../lib/utils'
 
 Area = Object:extend()
 
