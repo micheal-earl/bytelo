@@ -12,7 +12,7 @@ function Stage:new()
 end
 
 function Stage:update(dt)
-
+  if input:pressed('f') then self.area.game_objects[1].dead = true end
 end
 
 function Stage:draw()

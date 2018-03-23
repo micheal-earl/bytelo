@@ -3,18 +3,8 @@ local Input = require 'lib/input/Input'
 local Timer = require 'lib/hump/timer'
 local Camera = require 'lib/hump/camera'
 local Bump = require 'lib/bump/bump'
-require 'lib/utils'
 
-require 'objects/GameObject'
-require 'objects/Player'
-require 'objects/Area'
-require 'objects/Circle'
-require 'objects/Rect'
-
-require 'rooms/CircleRoom'
-require 'rooms/PolyRoom'
-require 'rooms/RectRoom'
-require 'rooms/Stage'
+require "init"
 
 function love.load(arg) -- take arg for debug
   -- this line enables debugging in zbs
