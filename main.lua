@@ -1,3 +1,4 @@
+love.filesystem.mount(love.filesystem.getSource(), "")
 local Object = require 'lib/classic/classic'
 local Input = require 'lib/input/input'
 local Timer = require 'lib/hump/timer'
@@ -20,7 +21,7 @@ function love.load(arg) -- take arg for debug
   input = Input()
 
   -- set up our keybindings
-  input:bind('f4'    ,   'f4')
+  input:bind('f4'   ,    'f4')
   input:bind('up'   ,    'up')
   input:bind('down' ,  'down')
   input:bind('left' ,  'left')

@@ -7,11 +7,11 @@ return {
   Bump = require 'lib/bump/bump',
   --]]
   
-  require 'lib/utils',
+  require 'lib.utils',
 
-  require 'objects/GameObject',
-  require 'objects/Player',
-  require 'objects/Area',
+  require 'objects.GameObject',
+  require 'objects.Player',
+  require 'objects.Area',
 
-  require 'rooms/Stage'
+  require 'rooms.Stage'
 }
