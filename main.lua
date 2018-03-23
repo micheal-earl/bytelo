@@ -1,5 +1,5 @@
 local Object = require 'lib/classic/classic'
-local Input = require 'lib/input/Input'
+local Input = require 'lib/input/input'
 local Timer = require 'lib/hump/timer'
 local Camera = require 'lib/hump/camera'
 local Bump = require 'lib/bump/bump'
@@ -19,12 +19,6 @@ function love.load(arg) -- take arg for debug
   
   -- instantiate input lib into variable
   input = Input()
-  input:bind('f1', 'f1key') -- define our inputs map key -> name
-  input:bind('f2', 'f2key')
-  input:bind('f3', 'f3key')
-  input:bind('f4', 'f4key')
-  input:bind('d' ,  'dkey')
-
   input:bind('up', 'upkey')
   input:bind('down', 'downkey')
   input:bind('left', 'leftkey')
@@ -32,22 +26,12 @@ function love.load(arg) -- take arg for debug
   
   -- initialize our current room to nil
   current_room = nil
+  gotoRoom('Stage')
 end
 
 function love.update(dt)
   timer:update(dt)
-  
   if current_room then current_room:update(dt) end
-  
-  -- change our current room depengin on f key pressed
-  if input:pressed('f1key') then gotoRoom('RectRoom')   end
-  if input:pressed('f2key') then gotoRoom('PolyRoom')   end
-  if input:pressed('f3key') then gotoRoom('CircleRoom') end
-  if input:pressed('f4key') then gotoRoom('Stage')      end
-
-  if input:pressed('dkey') then 
-    current_room.area.game_objects[#current_room.area.game_objects].dead = true 
-  end
 end
 
 function love.draw()

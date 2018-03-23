@@ -12,15 +12,16 @@ end
 
 function Area:update(dt)
   for i = #self.game_objects, 1, -1 do
-      local game_object = self.game_objects[i]
-      game_object:update(dt)
-      if game_object.dead then 
-        table.remove(self.game_objects, i) 
-      end
+    local game_object = self.game_objects[i]
+    if game_object.dead then 
+      table.remove(self.game_objects, i) 
+    end
+    game_object:update(dt)
   end
 end
 
 function Area:draw()
+  --table.remove(self.game_objects, #self.game_objects)
   for _, game_object in ipairs(self.game_objects) do game_object:draw(dt) end
 end
 
