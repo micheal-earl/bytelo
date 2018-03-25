@@ -8,7 +8,6 @@ function Stage:new()
   self.area = Area(self)
   self.area:addPhysicsWorld()
   player = self.area:addGameObject('Player', window_width/2, window_height/2)
-
 end
 
 function Stage:update(dt)

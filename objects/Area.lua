@@ -1,5 +1,4 @@
 local Object = require '../lib/classic/classic'
---require '../lib/utils'
 
 Area = Object:extend()
 

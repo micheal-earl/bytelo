@@ -10,7 +10,7 @@ end
 function Player:update(dt)
   Player.super.update(self, dt)
   self:handleInput(dt)
-  self.area.world:update(self, self.x, self.y)
+  self.area.world:update(self.collider, self.x, self.y)
 end
 
 function Player:draw()
@@ -22,7 +22,9 @@ function Player:handleInput(dt)
   local dash_spd = 0.1
 
   if input:pressed('mouse1') then
-    print(love.mouse.getPosition())
+    local x, y = love.mouse.getPosition()
+    print(x.." "..y)
+    self.area:addGameObject('Rect', x, y, {5, 5})
 
   end
 

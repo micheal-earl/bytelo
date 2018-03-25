@@ -1,9 +1,10 @@
-love.filesystem.mount(love.filesystem.getSource(), "")
+--love.filesystem.mount(love.filesystem.getSource(), "")
 local Object = require 'lib/classic/classic'
 local Input = require 'lib/input/Input'
 local Timer = require 'lib/hump/timer'
 local Camera = require 'lib/hump/camera'
 local Bump = require 'lib/bump/bump'
+local moses = require 'lib/moses/moses'
 require "init"
 
 function love.load(arg) -- take arg for debug
