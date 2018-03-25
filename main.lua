@@ -4,7 +4,7 @@ local Input = require 'lib/input/Input'
 local Timer = require 'lib/hump/timer'
 local Camera = require 'lib/hump/camera'
 local Bump = require 'lib/bump/bump'
-local moses = require 'lib/moses/moses'
+local Moses = require 'lib/moses/moses'
 require "init"
 
 function love.load(arg) -- take arg for debug
@@ -19,11 +19,13 @@ function love.load(arg) -- take arg for debug
   timer = Timer()
   camera = Camera()
   physics = Bump
+  moses = Moses
   input = Input()
-
+  
   -- set up our keybindings
   input:bind('f4'    ,     'f4')
   input:bind('mouse1', 'mouse1')
+  input:bind('mouse2', 'mouse2')
   input:bind('up'    ,     'up')
   input:bind('down'  ,   'down')
   input:bind('left'  ,   'left')

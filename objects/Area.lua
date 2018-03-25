@@ -26,11 +26,12 @@ function Area:draw()
   for _, game_object in ipairs(self.game_objects) do game_object:draw(dt) end
 end
 
-function Area:addGameObject(game_object_type, x, y, opts)
+function Area:addGameObject(game_object_type, x, y, opts, class)
+  local class = class or game_object_type
   local opts = opts or {}
   local game_object = _G[game_object_type](self, x or 0, y or 0, opts)
 
-  game_object.class = game_object_type
+  game_object.class = class
 
   table.insert(self.game_objects, game_object)
   return game_object

@@ -13,6 +13,7 @@ return {
   require 'objects/Player',
   require 'objects/Area',
   require 'objects/Bullet',
+  require 'objects/Upgrade',
 
   require 'rooms/Stage'
 }
