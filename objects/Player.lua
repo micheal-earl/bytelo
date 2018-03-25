@@ -21,11 +21,14 @@ function Player:handleInput(dt)
   local spd = 4
   local dash_spd = 0.1
 
-  if input:pressed('mouse1') then
+  if input:down('mouse1', 1) then
     local x, y = love.mouse.getPosition()
     print(x.." "..y)
-    self.area:addGameObject('Rect', x, y, {5, 5})
 
+    --self.area:addGameObject('Bullet', self.x, self.y, {3, x, y, 500})
+    for i = 1, 8 do
+      self.area:addGameObject('Bullet', self.x, self.y, {2, x + random(-20, 20), y + random(-20, 20), random(400, 450)})
+    end
   end
 
   if input:down('up') then 

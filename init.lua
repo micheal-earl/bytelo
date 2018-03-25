@@ -12,7 +12,7 @@ return {
   require 'objects/GameObject',
   require 'objects/Player',
   require 'objects/Area',
-  require 'objects/Rect',
+  require 'objects/Bullet',
 
   require 'rooms/Stage'
 }
