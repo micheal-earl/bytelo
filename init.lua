@@ -14,6 +14,7 @@ return {
   require 'objects/Area',
   require 'objects/Bullet',
   require 'objects/Upgrade',
+  require 'objects/Enemy',
 
   require 'rooms/Stage'
 }

@@ -14,48 +14,6 @@ function Player:update(dt)
   Player.super.update(self, dt)
   self:handleInput(dt)
   self.area.world:update(self.collider, self.x, self.y)
-
-  -- **TODO** remove this fake collision code
-  if #self.area:queryCircleArea(self.x, self.y, 30, {'Bullet2', 'Bullet3'}) > 0 then
-    print("wow")
-    self.x = 5000
-    self.y = 5000
-    timer:after(3, function() 
-      self.x = window_width/2
-      self.y = window_height/2
-    end)
-  else
-    print("no")
-  end
-  if #self.area:queryCircleArea(self.x, self.y, 30, {'Upgrade'}) > 0 then
-    self.ups = self.ups - 1
-    self.bullet_amt = self.bullet_amt + 1
-    self.fire_rate = self.fire_rate - 0.05
-    for _, game_object in ipairs(self.area.game_objects) do
-      if game_object.class == 'Upgrade' then
-        game_object.dead = true
-      end
-    end
-  end
-  self.area:queryCircleArea(self.x, self.y, 30, {'Upgrade'}).dead = true
-
-  -- **TODO** remove this test code
-  -- stuff like this should be handled by Stage, not player
-  local rand = math.ceil(random(80))
-  if rand == 1 then
-    self.area:addGameObject('Bullet', self.x + random(200, 450), self.y + random(150, 250), {20, self.x, self.y, 100}, 'Bullet2')
-  elseif rand == 25 then
-    self.area:addGameObject('Bullet', self.x + random(-200, -450), self.y + random(-150, -250), {20, self.x, self.y, 100}, 'Bullet2')
-  elseif rand == 50 then
-    self.area:addGameObject('Bullet', self.x + random(-200, -450), self.y + random(150, 250), {20, self.x, self.y, 100}, 'Bullet2')
-  elseif rand == 75 then
-    self.area:addGameObject('Bullet', self.x + random(200, 450), self.y + random(-150, -250), {20, self.x, self.y, 100}, 'Bullet2')
-  end
-
-  if math.ceil(random(200)) == 1 and self.ups < 1 then
-    self.ups = self.ups + 1
-    self.area:addGameObject('Upgrade', random(1200), random(700), {12})
-  end
 end
 
 function Player:draw()
@@ -70,16 +28,17 @@ function Player:handleInput(dt)
 
   if input:down('mouse1', self.fire_rate) then
     local x, y = love.mouse.getPosition()
-    print(x.." "..y)
-    --self.area:addGameObject('Bullet', self.x, self.y, {3, x, y, 750})
-    for i = 1, self.bullet_amt do
-      self.area:addGameObject('Bullet', self.x, self.y, {4, x + random(-10, 10), y + random(-10, 10), random(600, 800)})
-    end
-  end
+    print(self.fire_rate)
 
-  if input:pressed('mouse2') then
-    local x, y = love.mouse.getPosition()
-    self.area:addGameObject('Bullet', x, y, {25, self.x, self.y, 100}, 'Bullet2')
+    -- this if statement makes sure we cannot just hold mouse1
+    -- in the middle of the player object and spray the entire
+    -- screen with bullets.
+    if(distance(x, y, self.x, self.y)) > 30 then
+      for i = 1, self.bullet_amt do
+        self.area:addGameObject('Bullet', self.x, self.y, 
+        {4, x + random(-10, 10), y + random(-10, 10), random(600, 800)}, 'player_bullet')
+      end
+    end
   end
 
   if input:down('up') then 
@@ -96,7 +55,7 @@ function Player:handleInput(dt)
   end
 
   -- There is something wrong with the input libs sequence function
-  --
+  --[[
   if input:sequence('up', 0.3, 'up') then
     local t = self.y
     timer:tween(dash_spd, self, {y = t - 100})
@@ -129,4 +88,14 @@ function Player:outOfBounds()
   else
     return false
   end
+end
+
+function Player:killPlayer()
+  print("wow")
+  self.x = 5000
+  self.y = 5000
+  timer:after(3, function() 
+    self.x = window_width/2
+    self.y = window_height/2
+  end)
 end

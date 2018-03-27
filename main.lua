@@ -26,6 +26,7 @@ function love.load(arg) -- take arg for debug
   input:bind('f4'    ,     'f4')
   input:bind('mouse1', 'mouse1')
   input:bind('mouse2', 'mouse2')
+  input:bind('u'     ,      'u')
   input:bind('up'    ,     'up')
   input:bind('down'  ,   'down')
   input:bind('left'  ,   'left')
@@ -34,6 +35,7 @@ function love.load(arg) -- take arg for debug
   input:bind('a'     ,   'left')
   input:bind('s'     ,   'down')
   input:bind('d'     ,  'right')
+  input:bind('r'     ,      'r')
   
   cursor = love.mouse.newCursor('/resources/crosshair.png', 8, 8)
   love.mouse.setCursor(cursor)
@@ -46,6 +48,9 @@ end
 function love.update(dt)
   timer:update(dt)
   if current_room then current_room:update(dt) end
+  if input:pressed('r') then
+    gotoRoom('Stage')
+  end
 end
 
 function love.draw()

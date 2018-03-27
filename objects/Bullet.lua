@@ -25,39 +25,10 @@ function Bullet:update(dt)
 
   self.x = self.x + (self.dx * dt)
   self.y = self.y + (self.dy * dt)
-
-  -- **TODO** remove this fake collision code
-  if self.class == 'Bullet' or self.class == 'Bullet2' then
-    if #self.area:queryCircleArea(self.x, self.y, 30, {'Bullet'}) > 0 then
-      if self.class ~= 'Bullet' then
-        print("what~~~~!!!!!!!")
-        self.dead = true
-      end
-    else
-      print("no~~~~~~")
-    end
-    if #self.area:queryCircleArea(self.x, self.y, 30, {'Bullet2'}) > 0 then
-      if self.class ~= 'Bullet2' then
-        print("what~~~~!!!!!!!")
-        self.dead = true
-      end
-    else
-      print("no~~~~~~")
-    end
-  end
-
-  if self.class == 'Bullet2' then
-    local rand = math.ceil(random(500))
-    if rand == 1 then
-      self.area:addGameObject('Bullet', self.x, self.y, {6, random(1366), random(768), 150}, 'Bullet3')
-    end
-  end
 end
 
 function Bullet:draw()
-  if self.class == 'Bullet' then love.graphics.setColor(0, 255, 0) end
-  if self.class == 'Bullet2' then love.graphics.setColor(255, 0, 0) end
-  if self.class == 'Bullet3' then love.graphics.setColor(255, 100, 0) end
+  --if self.class == 'player_bullet' then love.graphics.setColor(0, 255, 0) end
   love.graphics.circle('fill', self.x, self.y, self.radius)
   love.graphics.setColor(255, 255, 255)
 end
