@@ -8,6 +8,7 @@ function Player:new(area, x, y, opts)
   self.bullet_amt = 1
   self.fire_rate = 0.3
   self.ups = 0
+  self.score = 0
 end
 
 function Player:update(dt)
@@ -76,11 +77,6 @@ function Player:handleInput(dt)
 end
 
 function Player:outOfBounds()
-  -- hacky code
-  if self.y >= 4000 then
-    return false
-  end
-
   if self.y > window_height or self.y < 0 then
     return true
   elseif self.x > window_width or self.x < 0 then

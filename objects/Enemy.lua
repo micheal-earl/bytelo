@@ -19,6 +19,7 @@ function Enemy:update(dt)
 
   if #self.area:queryCircleArea(self.x, self.y, 40, {'player_bullet'}) > 0 then
     self.dead = true
+    player.score = player.score + 1
   end
 
   -- **TODO** remove fake collision code and use real code instead

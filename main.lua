@@ -1,4 +1,3 @@
---love.filesystem.mount(love.filesystem.getSource(), "")
 local Object = require 'lib/classic/classic'
 local Input = require 'lib/input/Input'
 local Timer = require 'lib/hump/timer'

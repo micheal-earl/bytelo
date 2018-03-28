@@ -37,17 +37,13 @@ function Stage:update(dt)
     player.y = window_height/2
   end
 
-  -- spawn an enemy
-  if math.ceil(random(100)) == 101 then
-    self.area:addGameObject('Enemy', random(1366), random(768))
-  end
-
   -- spawn an upgrade
   if player.ups < 1 then
     player.ups = player.ups + 1
     self.area:addGameObject('Upgrade', random(100, 1266), random(100, 668))
   end
 
+  -- spawn enemies randomly in each quadrant
   local rand = math.ceil(random(100))
   if rand == 1 then
     self.area:addGameObject('Enemy', player.x + random(200, 450), player.y + random(150, 250))
@@ -58,7 +54,6 @@ function Stage:update(dt)
   elseif rand == 4 then
     self.area:addGameObject('Enemy', player.x + random(200, 450), player.y + random(-150, -250))
   end
-  --]]
 end
 
 function Stage:draw()
@@ -66,4 +61,5 @@ function Stage:draw()
   love.graphics.print("WASD or arrow keys to move", 10, 10)
   love.graphics.print("Double tap key to dash", 10, 25)
   love.graphics.print("Mouse1 to shoot", 10, 40)
+  love.graphics.print("Score: "..player.score, 10, 55)
 end
