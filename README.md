@@ -14,3 +14,5 @@ love.exe .
 ```
 
 This should execute love in the current directory (which in turn finds main.lua and launches the game)
+
+Additionaly, you can access the very first release here: https://github.com/Zenrix/bytelo/releases/tag/0.1.1, warning: this release is likely FAR behind the repo/source code.

@@ -65,12 +65,10 @@ function Player:handleInput(dt)
   local actualX, actualY, cols, len = self.area.world:move(self, goalX, goalY, filter)
   self.x, self.y = actualX, actualY
 
-  -- SHOOT BOYZ -------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  -- **TODO** Fix fire rate bug
   if input:down('mouse1', self.fire_rate)  then
     local x, y = love.mouse.getPosition()
     print(self.fire_rate)
-
-      
     -- this if statement removes super saiyan cheese
     if(distance(x, y, self.x + offsetX, self.y + offsetY)) > 30 then
       for i = 1, self.bullet_amt do
@@ -78,9 +76,7 @@ function Player:handleInput(dt)
         {6, 6, x, y, 800}, 'player_bullet')
       end
     end
-
   end
-
 
 	if input:down('up') then 
 		self.vy = -self.speed
