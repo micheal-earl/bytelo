@@ -4,8 +4,9 @@ Enemy = GameObject:extend()
 
 function Enemy:new(area, x, y, opts)
   Enemy.super.new(self, area, x, y, opts)
-  self.width = opts[1] or 34
-  self.height = opts[2] or 34
+  self.speed = opts[1] or 1
+  self.width = opts[2] or 34
+  self.height = opts[3] or 34
 
   self.vx, self.vy = 20, 20
 
@@ -27,6 +28,7 @@ function Enemy:update(dt)
     --self.area.world:remove(self.collider)
     self.dead = true
     player.score = player.score + 1
+    self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"+1", 20, 5, 0.4})
   end
 
   -- **TODO** remove fake collision code and use real code instead
@@ -61,17 +63,33 @@ function Enemy:moveEnemy(player_dead, dt)
   if not player_dead and not self.dead then
     if self.target_player then
       if self.target_player.x + 10 > self.x + offsetX then
-        local actualX, actualY, cols, len = self.area.world:move(self.collider, self.x + 1, self.y)
+        local actualX, actualY, cols, len = self.area.world:move(
+          self.collider, 
+          self.x + self.speed, 
+          self.y
+        )
         self.x = actualX
       elseif self.target_player.x + 10 < self.x + offsetX then
-        local actualX, actualY, cols, len = self.area.world:move(self.collider, self.x - 1, self.y)
+        local actualX, actualY, cols, len = self.area.world:move(
+          self.collider, 
+          self.x - self.speed, 
+          self.y
+        )
         self.x = actualX
       end
       if self.target_player.y + 10 > self.y + offsetY then
-        local actualX, actualY, cols, len = self.area.world:move(self.collider, self.x, self.y + 1)
+        local actualX, actualY, cols, len = self.area.world:move(
+          self.collider, 
+          self.x, 
+          self.y + self.speed
+        )
         self.y = actualY
       elseif self.target_player.y + 10 < self.y + offsetY then
-        local actualX, actualY, cols, len = self.area.world:move(self.collider, self.x, self.y - 1)
+        local actualX, actualY, cols, len = self.area.world:move(
+          self.collider, 
+          self.x, 
+          self.y - self.speed
+        )
         self.y = actualY
       end
     end

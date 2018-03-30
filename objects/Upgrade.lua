@@ -24,10 +24,15 @@ function Upgrade:update(dt)
 
   if not self.dead and #self.area:queryCircleArea(self.x, self.y, 20, {'Player'}) > 0 then
     self.target_player.ups = self.target_player.ups - 1
+    self.target_player.score = self.target_player.score + 10
     --self.target_player.bullet_amt = self.target_player.bullet_amt + 1
-    --if self.target_player.fire_rate > 0.1 then 
-    self.target_player.fire_rate = self.target_player.fire_rate - 0.05
-    --end
+    if self.target_player.fire_rate > 0.06 then 
+      self.target_player.fire_rate = self.target_player.fire_rate - 0.05
+      self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"Fire rate up!", 30})
+    else
+      self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"Max fire rate!", 30})
+    end
+    self.area:addGameObject('Notify', self.x - 50, self.y - 20, {"+10", 20, 5, 0.4})--, 3, "left", 1})
     self.dead = true
   end
 end

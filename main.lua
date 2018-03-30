@@ -40,6 +40,8 @@ function love.load(arg) -- take arg for debug
   cursor = love.mouse.newCursor('/resources/crosshair.png', 8, 8)
   love.mouse.setCursor(cursor)
 
+  default_font = love.graphics.newFont(12)
+
   -- initialize our current room to nil
   current_room = nil
   gotoRoom('Stage')

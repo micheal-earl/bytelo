@@ -5,6 +5,16 @@ Stage = Object:extend()
 function Stage:new()
   self.area = Area(self)
   self.area:addPhysicsWorld()
+  self.enemy_speed = 1
+  timer:every(10, function()
+     self.enemy_speed = self.enemy_speed + 1 
+     self.area:addGameObject(
+       'Notify', 
+       0, 
+       766/2, 
+       {"Difficulty up!", 100, 3, 3, "center"}
+      )
+  end)
 
   -- spawn our player and set him to a variable for easy access
   player = self.area:addGameObject('Player', window_width/2, window_height/2)
@@ -46,20 +56,41 @@ function Stage:update(dt)
   -- spawn enemies randomly in each quadrant
   local rand = math.ceil(random(100)) -- **TODO** turn on enemy spawn
   if rand == 1 then
-    self.area:addGameObject('Enemy', player.x + random(100, 450), player.y + random(150, 250))
+    self.area:addGameObject(
+      'Enemy', 
+      player.x + random(100, 450), 
+      player.y + random(150, 250), 
+      {self.enemy_speed}
+    )
   elseif rand == 2 then
-    self.area:addGameObject('Enemy', player.x + random(-100, -450), player.y + random(-150, -250))
+    self.area:addGameObject(
+      'Enemy', 
+      player.x + random(-100, -450), 
+      player.y + random(-150, -250), 
+      {self.enemy_speed}
+    )
   elseif rand == 3 then
-    self.area:addGameObject('Enemy', player.x + random(-100, -450), player.y + random(150, 250))
+    self.area:addGameObject(
+      'Enemy', 
+      player.x + random(-100, -450), 
+      player.y + random(150, 250), 
+      {self.enemy_speed}
+    )
   elseif rand == 4 then
-    self.area:addGameObject('Enemy', player.x + random(100, 450), player.y + random(-150, -250))
+    self.area:addGameObject(
+      'Enemy', 
+      player.x + random(100, 450), 
+      player.y + random(-150, -250), 
+      {self.enemy_speed}
+    )
   end
 end
 
 function Stage:draw()
   self.area:draw()
   love.graphics.print("WASD or arrow keys to move", 10, 10)
-  love.graphics.print("Double tap key to dash", 10, 25)
-  love.graphics.print("Mouse1 to shoot", 10, 40)
+  --love.graphics.print("Double tap key to dash", 10, 25)
+  love.graphics.print("Mouse1 to shoot", 10, 25)
+  love.graphics.print("R to restart", 10, 40)
   love.graphics.print("Score: "..player.score, 10, 55)
 end

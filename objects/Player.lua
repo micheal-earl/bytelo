@@ -52,7 +52,7 @@ function Player:handleInput(dt)
   self.x, self.y = actualX, actualY
 
   if input:down('mouse1', self.fire_rate) then
-    if self.fire_rate < 0 then self.fire_rate = 0.05 end
+    --if self.fire_rate < 0.05 then self.fire_rate = 0.05 end
     local x, y = love.mouse.getPosition()
     print(self.fire_rate)
     -- this if statement makes sure we cannot just hold mouse1
