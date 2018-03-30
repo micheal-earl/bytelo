@@ -35,8 +35,18 @@ function Bullet:update(dt)
     self.dead = true
   end
 
+  local function filter(item, other)
+    --if other.class == "Bullet" then return "cross" end
+    return "cross"
+  end
+
   if not self.dead then
-    actualX, actualY, cols, len = self.area.world:move(self.collider, self.x + self.dx * dt, self.y + self.dy * dt)
+    local actualX, actualY, cols, len = self.area.world:move(
+      self.collider, 
+      self.x + self.dx * dt, 
+      self.y + self.dy * dt,
+      filter
+    )
     self.x = actualX
     self.y = actualY
   end

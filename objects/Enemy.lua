@@ -9,10 +9,9 @@ function Enemy:new(area, x, y, opts)
   self.height = opts[3] or 34
 
   self.vx, self.vy = 20, 20
+  self.goalX, self.goalY = self.x, self.y
 
-  -- test stuff
-  offsetX = self.width/2
-  offsetY = self.height/2
+  -- test stuffdw
 
   -- physics
   self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
@@ -24,22 +23,8 @@ end
 function Enemy:update(dt)
   Enemy.super.update(self, dt)
 
-  if not self.dead and #self.area:queryCircleArea(self.x + offsetX, self.y + offsetY, 40, {'player_bullet'}) > 0 then
-    --self.area.world:remove(self.collider)
-    self.dead = true
-    player.score = player.score + 1
-    self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"+1", 20, 5, 0.4})
-  end
-
-  -- **TODO** remove fake collision code and use real code instead
-  --
-  if not self.dead and  #self.area:queryCircleArea(self.x, self.y, 40, {'Player'}) > 0 then
-    player.dead = true
-  end
-  --]]
-
   -- pathfinding
-  self:moveEnemy(player.dead, dt)
+  self:moveEnemy(self.target_player.dead, dt)
 end
 
 function Enemy:draw()
@@ -51,47 +36,45 @@ function Enemy:draw()
   love.graphics.setColor(255, 255, 255)
 end
 
--- **TODO** Fix this to make is more fluid, maybe use vector math
+-- **TODO** Figure out the clusterfuck that is collision
 function Enemy:moveEnemy(player_dead, dt)
-  --[[
-  local goalX, goalY = self.target_player.x + self.vx * dt, self.target_player.y + self.vy * dt
-  local actualX, actualY, cols, len = self.area.world:move(self.collider, goalX, goalY)
-  self.x, self.y = actualX, actualY
-  --]]
+  if self.target_player then
+    if self.target_player.x + 10 > self.x + offsetX then
+      self.goalX = self.goalX + self.speed
+    elseif self.target_player.x + 10 < self.x + offsetX then
+      self.goalX = self.goalX - self.speed
+    end
+    if self.target_player.y + 10 > self.y + offsetY then
+      self.goalY = self.goalY + self.speed
+    elseif self.target_player.y + 10 < self.y + offsetY then
+      self.goalY = self.goalY - self.speed
+    end
+  end
 
+  local function filter(item, other)
+    if other.class == "player_bullet" then return "cross" end
+    if other.class == "Upgrade" then return "cross" end
+    return "slide"
+  end
 
-  if not player_dead and not self.dead then
-    if self.target_player then
-      if self.target_player.x + 10 > self.x + offsetX then
-        local actualX, actualY, cols, len = self.area.world:move(
-          self.collider, 
-          self.x + self.speed, 
-          self.y
-        )
-        self.x = actualX
-      elseif self.target_player.x + 10 < self.x + offsetX then
-        local actualX, actualY, cols, len = self.area.world:move(
-          self.collider, 
-          self.x - self.speed, 
-          self.y
-        )
-        self.x = actualX
+  if not self.dead then
+    local actualX, actualY, cols, len = self.area.world:move(
+      self.collider, 
+      self.goalX, 
+      self.goalY,
+      filter
+    )
+    self.x, self.y = actualX, actualY
+
+    for i = 1, len do
+      print('enemy collide ' .. tostring(cols[i].other.class))
+      obj = cols[i].other
+      if obj.class == "player_bullet" then 
+        self.dead = true 
+        self.target_player.score = self.target_player.score + 1
+        self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"+1", 20, 5, 0.4})
       end
-      if self.target_player.y + 10 > self.y + offsetY then
-        local actualX, actualY, cols, len = self.area.world:move(
-          self.collider, 
-          self.x, 
-          self.y + self.speed
-        )
-        self.y = actualY
-      elseif self.target_player.y + 10 < self.y + offsetY then
-        local actualX, actualY, cols, len = self.area.world:move(
-          self.collider, 
-          self.x, 
-          self.y - self.speed
-        )
-        self.y = actualY
-      end
+      if obj.class == "Player" then obj.dead = true end
     end
   end
 end

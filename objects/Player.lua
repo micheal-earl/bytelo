@@ -33,6 +33,7 @@ end
 function Player:update(dt)
   Player.super.update(self, dt)
   if not self.dead then self:handleInput(dt) end
+
 end
 
 function Player:draw()
@@ -47,24 +48,39 @@ end
 
 -----------------------------------------------------
 function Player:handleInput(dt)
+
+  local function filter(item, other)
+    if     other.class == 'Upgrade' then
+      return 'cross'
+    elseif other.class == 'Enemy'   then 
+      return 'touch'
+    elseif other.class == 'Bullet'  then 
+      return 'cross'
+    --elseif other.isSpring then return 'bounce'
+    end
+    --return "cross"
+  end
+
   local goalX, goalY = self.x + self.vx * dt, self.y + self.vy * dt
-  local actualX, actualY, cols, len = self.area.world:move(self, goalX, goalY)
+  local actualX, actualY, cols, len = self.area.world:move(self, goalX, goalY, filter)
   self.x, self.y = actualX, actualY
 
-  if input:down('mouse1', self.fire_rate) then
-    --if self.fire_rate < 0.05 then self.fire_rate = 0.05 end
+  -- SHOOT BOYZ -------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  if input:down('mouse1', self.fire_rate)  then
     local x, y = love.mouse.getPosition()
     print(self.fire_rate)
-    -- this if statement makes sure we cannot just hold mouse1
-    -- in the middle of the player object and spray the entire
-    -- screen with bullets.
+
+      
+    -- this if statement removes super saiyan cheese
     if(distance(x, y, self.x + offsetX, self.y + offsetY)) > 30 then
       for i = 1, self.bullet_amt do
         self.area:addGameObject('Bullet', self.x + 5, self.y + 5, 
         {6, 6, x, y, 800}, 'player_bullet')
       end
     end
+
   end
+
 
 	if input:down('up') then 
 		self.vy = -self.speed
@@ -86,10 +102,28 @@ function Player:handleInput(dt)
 		self.vx = self.vx - self.decay
   end
 
+  -- **TODO** handle collision in it's own function?
   for i = 1, len do
-		print('collide ' .. tostring(cols[i].other))
-	end
+    print('collide ' .. tostring(cols[i].other.class))
+    obj = cols[i].other
+    if obj.class == "Enemy" then self.dead = true end
+    if obj.class == "Upgrade" then self:upgrade(obj) end
+  end
 end
+
+function Player:upgrade(upgrade_object)
+  upgrade_object.dead = true
+  self.ups = self.ups - 1
+  self.score = self.score + 10
+  if self.fire_rate > 0.06 then 
+    self.fire_rate = self.fire_rate - 0.05 
+    self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"Fire rate up!", 30})
+  else
+    self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"Max fire rate!", 30})
+  end
+  self.area:addGameObject('Notify', self.x - 50, self.y - 20, {"+10", 20, 5, 0.4})
+end
+
 
 function Player:outOfBounds()
   if self.y > window_height or self.y < 0 then
@@ -99,14 +133,4 @@ function Player:outOfBounds()
   else
     return false
   end
-end
-
-function Player:killPlayer()
-  print("wow")
-  self.x = 5000
-  self.y = 5000
-  timer:after(3, function() 
-    self.x = window_width/2
-    self.y = window_height/2
-  end)
 end

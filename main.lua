@@ -45,14 +45,19 @@ function love.load(arg) -- take arg for debug
   -- initialize our current room to nil
   current_room = nil
   gotoRoom('Stage')
+  timer:every(0.8, function() print(math.ceil(random(9)) .. " -------------") end)
 end
 
 function love.update(dt)
   timer:update(dt)
   if current_room then current_room:update(dt) end
+
+  if current_room.player.dead == true then gotoRoom('Stage') end
+  --[[
   if input:pressed('r') then
     gotoRoom('Stage')
   end
+  --]]
 
   if input:pressed('f1') then
     print("Before collection: " .. collectgarbage("count")/1024)

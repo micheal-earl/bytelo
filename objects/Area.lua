@@ -18,7 +18,7 @@ function Area:update(dt)
       if self.world:hasItem(game_object) then
         self.world:remove(game_object.collider)
       else
-        print("Not a physics object")
+        --print("Not a physics object")
       end
       table.remove(self.game_objects, i) 
     end

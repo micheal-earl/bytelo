@@ -10,14 +10,14 @@ function Stage:new()
      self.enemy_speed = self.enemy_speed + 1 
      self.area:addGameObject(
        'Notify', 
-       0, 
+       0,
        766/2, 
        {"Difficulty up!", 100, 3, 3, "center"}
       )
   end)
 
-  -- spawn our player and set him to a variable for easy access
-  player = self.area:addGameObject('Player', window_width/2, window_height/2)
+  -- spawn our self.player and set him to a variable for easy access
+  self.player = self.area:addGameObject('Player', window_width/2, window_height/2)
 end
 
 function Stage:update(dt)
@@ -41,46 +41,46 @@ function Stage:update(dt)
     self.area:addGameObject('Upgrade', x, y)
   end
 
-  -- make sure player stays within the screens dimensions
-  if player:outOfBounds() then
-    player.x = window_width/2
-    player.y = window_height/2
+  -- make sure self.player stays within the screens dimensions
+  if self.player:outOfBounds() then
+    self.player.x = window_width/2
+    self.player.y = window_height/2
   end
 
   -- spawn an upgrade
-  if player.ups < 1 then
-    player.ups = player.ups + 1
+  if self.player.ups < self.enemy_speed then
+    self.player.ups = self.player.ups + 1
     self.area:addGameObject('Upgrade', random(100, 1266), random(100, 668))
   end
 
   -- spawn enemies randomly in each quadrant
-  local rand = math.ceil(random(100)) -- **TODO** turn on enemy spawn
+  local rand = math.ceil(random(150)) -- **TODO** turn on enemy spawn
   if rand == 1 then
     self.area:addGameObject(
       'Enemy', 
-      player.x + random(100, 450), 
-      player.y + random(150, 250), 
+      self.player.x + random(200, 450), 
+      self.player.y + random(250, 250), 
       {self.enemy_speed}
     )
   elseif rand == 2 then
     self.area:addGameObject(
       'Enemy', 
-      player.x + random(-100, -450), 
-      player.y + random(-150, -250), 
+      self.player.x + random(-200, -450), 
+      self.player.y + random(-250, -250), 
       {self.enemy_speed}
     )
   elseif rand == 3 then
     self.area:addGameObject(
       'Enemy', 
-      player.x + random(-100, -450), 
-      player.y + random(150, 250), 
+      self.player.x + random(-200, -450), 
+      self.player.y + random(250, 250), 
       {self.enemy_speed}
     )
   elseif rand == 4 then
     self.area:addGameObject(
       'Enemy', 
-      player.x + random(100, 450), 
-      player.y + random(-150, -250), 
+      self.player.x + random(200, 450), 
+      self.player.y + random(-250, -250), 
       {self.enemy_speed}
     )
   end
@@ -88,9 +88,10 @@ end
 
 function Stage:draw()
   self.area:draw()
+  love.graphics.setColor(255, 255, 255)
   love.graphics.print("WASD or arrow keys to move", 10, 10)
   --love.graphics.print("Double tap key to dash", 10, 25)
   love.graphics.print("Mouse1 to shoot", 10, 25)
   love.graphics.print("R to restart", 10, 40)
-  love.graphics.print("Score: "..player.score, 10, 55)
+  love.graphics.print("Score: " .. self.player.score, 10, 55)
 end

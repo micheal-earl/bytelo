@@ -5,11 +5,11 @@ Upgrade = GameObject:extend()
 function Upgrade:new(area, x, y, opts)
   Upgrade.super.new(self, area, x, y, opts)
   self.opts = opts or {}
-  self.width = opts[1] or 12
-  self.height = opts[2] or 12
+  self.width = opts[1] or 16
+  self.height = opts[2] or 16
 
   -- physics
-  --self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
+  self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
 
   -- test stuff
   offsetX = self.width/2
@@ -22,6 +22,7 @@ end
 function Upgrade:update(dt)
   Upgrade.super.update(self, dt)
 
+  --[[
   if not self.dead and #self.area:queryCircleArea(self.x, self.y, 20, {'Player'}) > 0 then
     self.target_player.ups = self.target_player.ups - 1
     self.target_player.score = self.target_player.score + 10
@@ -35,12 +36,13 @@ function Upgrade:update(dt)
     self.area:addGameObject('Notify', self.x - 50, self.y - 20, {"+10", 20, 5, 0.4})--, 3, "left", 1})
     self.dead = true
   end
+  --]]
 end
 
 function Upgrade:draw()
-  love.graphics.setColor(255, 223, 0)
+  love.graphics.setColor(0, 223, 0)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
-  love.graphics.setColor(255, 223, 0, 50)
+  love.graphics.setColor(0, 223, 0, 50)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
                           self.width - 1, self.height - 1)
   love.graphics.setColor(255, 255, 255)
