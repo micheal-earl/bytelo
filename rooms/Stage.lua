@@ -44,15 +44,15 @@ function Stage:update(dt)
   end
 
   -- spawn enemies randomly in each quadrant
-  local rand = math.ceil(random(100))
+  local rand = math.ceil(random(100)) -- **TODO** turn on enemy spawn
   if rand == 1 then
-    self.area:addGameObject('Enemy', player.x + random(200, 450), player.y + random(150, 250))
+    self.area:addGameObject('Enemy', player.x + random(100, 450), player.y + random(150, 250))
   elseif rand == 2 then
-    self.area:addGameObject('Enemy', player.x + random(-200, -450), player.y + random(-150, -250))
+    self.area:addGameObject('Enemy', player.x + random(-100, -450), player.y + random(-150, -250))
   elseif rand == 3 then
-    self.area:addGameObject('Enemy', player.x + random(-200, -450), player.y + random(150, 250))
+    self.area:addGameObject('Enemy', player.x + random(-100, -450), player.y + random(150, 250))
   elseif rand == 4 then
-    self.area:addGameObject('Enemy', player.x + random(200, 450), player.y + random(-150, -250))
+    self.area:addGameObject('Enemy', player.x + random(100, 450), player.y + random(-150, -250))
   end
 end
 

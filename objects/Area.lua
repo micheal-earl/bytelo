@@ -4,6 +4,7 @@ Area = Object:extend()
 
 function Area:new(room)
   self.world = physics.newWorld()
+
   self.room = room
   self.game_objects = {}
 end
@@ -14,6 +15,11 @@ function Area:update(dt)
   for i = #self.game_objects, 1, -1 do
     local game_object = self.game_objects[i]
     if game_object.dead then 
+      if self.world:hasItem(game_object) then
+        self.world:remove(game_object.collider)
+      else
+        print("Not a physics object")
+      end
       table.remove(self.game_objects, i) 
     end
     game_object:update(dt)

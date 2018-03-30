@@ -2,33 +2,57 @@ local Object = require '../lib/classic/classic'
 
 Bullet = GameObject:extend()
 
-function Bullet:new(area, x, y, opts, radius, bullet_speed)
+function Bullet:new(area, x, y, opts)
   Bullet.super.new(self, area, x, y, opts)
   self.opts = opts or {100, 0, 0, 0}
-  self.radius = radius or opts[1]
 
-  self.tx = opts[2] or 0
-  self.ty = opts[3] or 0
 
-  self.bullet_speed = bullet_speed or opts[4]
+  self.width = opts[1] or 8
+  self.height = opts[2] or 8
 
-  self.angle = math.atan2((self.tx - self.x), (self.ty - self.y))
+  -- vector math
+  self.goalX = opts[3] or 0
+  self.goalY = opts[4] or 0
+
+  self.bullet_speed = opts[5] or 100
+
+  self.angle = math.atan2((self.goalX - self.x), (self.goalY - self.y))
   self.dx = self.bullet_speed * math.sin(self.angle)
   self.dy = self.bullet_speed * math.cos(self.angle)
+
+  self.x = self.x + self.width/2 + math.sin(self.angle) * 25
+  self.y = self.y + self.height/2 + math.cos(self.angle) * 25
+
+  -- physics
+  self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
+
 end
 
 function Bullet:update(dt)
   Bullet.super.update(self, dt)
+  
   if((self.x > 1366 or self.x < 0) or (self.y > 768 or self.y < 0)) then
     self.dead = true
   end
 
+  if not self.dead then
+    actualX, actualY, cols, len = self.area.world:move(self.collider, self.x + self.dx * dt, self.y + self.dy * dt)
+    self.x = actualX
+    self.y = actualY
+  end
+
+  --[[
   self.x = self.x + (self.dx * dt)
   self.y = self.y + (self.dy * dt)
+  --]]
 end
 
 function Bullet:draw()
   --if self.class == 'player_bullet' then love.graphics.setColor(0, 255, 0) end
-  love.graphics.circle('fill', self.x, self.y, self.radius)
+  love.graphics.setColor(255, 255, 255)
+  love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+  love.graphics.setColor(255, 255, 255, 50)
+  love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
+                          self.width - 1, self.height - 1)
   love.graphics.setColor(255, 255, 255)
 end
