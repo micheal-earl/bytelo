@@ -44,18 +44,23 @@ function love.load(arg) -- take arg for debug
 
   -- initialize our current room to nil
   current_room = nil
-  gotoRoom('Stage')
+  gotoRoom('Menu')
   timer:every(0.8, function() print(math.ceil(random(9)) .. " -------------") end)
+
+  love.graphics.setBackgroundColor(20, 20, 20)
 end
 
 function love.update(dt)
   timer:update(dt)
   if current_room then current_room:update(dt) end
 
-  if current_room.player.dead == true then gotoRoom('Stage') end
-  --[[
+  if current_room.player and current_room.player.dead == true then 
+    local previous_score = current_room.score
+    gotoRoom('Menu', previous_score, highest_score) 
+  end
+  --
   if input:pressed('r') then
-    gotoRoom('Stage')
+    gotoRoom('Menu')
   end
   --]]
 

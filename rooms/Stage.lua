@@ -18,9 +18,12 @@ function Stage:new()
 
   -- spawn our self.player and set him to a variable for easy access
   self.player = self.area:addGameObject('Player', window_width/2, window_height/2)
+  -- **TODO** centralize score system, too many things are keeping track of it
+  self.score = 0
 end
 
 function Stage:update(dt)
+  self.score = self.player.score
   -- call the update function from our area
   self.area:update(dt)
 
@@ -59,28 +62,28 @@ function Stage:update(dt)
     self.area:addGameObject(
       'Enemy', 
       self.player.x + random(200, 450), 
-      self.player.y + random(250, 250), 
+      self.player.y + random(250, 350), 
       {self.enemy_speed}
     )
   elseif rand == 2 then
     self.area:addGameObject(
       'Enemy', 
       self.player.x + random(-200, -450), 
-      self.player.y + random(-250, -250), 
+      self.player.y + random(-250, -350), 
       {self.enemy_speed}
     )
   elseif rand == 3 then
     self.area:addGameObject(
       'Enemy', 
       self.player.x + random(-200, -450), 
-      self.player.y + random(250, 250), 
+      self.player.y + random(250, 350), 
       {self.enemy_speed}
     )
   elseif rand == 4 then
     self.area:addGameObject(
       'Enemy', 
       self.player.x + random(200, 450), 
-      self.player.y + random(-250, -250), 
+      self.player.y + random(-250, -350), 
       {self.enemy_speed}
     )
   end
@@ -88,10 +91,9 @@ end
 
 function Stage:draw()
   self.area:draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(255, 255, 255, 200)
   love.graphics.print("WASD or arrow keys to move", 10, 10)
-  --love.graphics.print("Double tap key to dash", 10, 25)
   love.graphics.print("Mouse1 to shoot", 10, 25)
-  love.graphics.print("R to restart", 10, 40)
+  love.graphics.print("R to return to menu", 10, 40)
   love.graphics.print("Score: " .. self.player.score, 10, 55)
 end

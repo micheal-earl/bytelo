@@ -33,17 +33,30 @@ end
 function Player:update(dt)
   Player.super.update(self, dt)
   if not self.dead then self:handleInput(dt) end
-
 end
 
 function Player:draw()
   love.graphics.setColor(0, 255, 255)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+  --love.graphics.line(self.x, self.y, self.x + 20, self.y + 20)
+  love.graphics.setColor(255, 255, 255, 25)
+  self:drawGun()
   -- draw inside
   love.graphics.setColor(0, 255, 255, 50)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
                           self.width - 1, self.height - 1)
   love.graphics.setColor(255, 255, 255)
+end
+
+function Player:drawGun()
+  local x, y = love.mouse.getPosition()
+  local angle = math.atan2((x - self.x), (y - self.y))
+  love.graphics.line(self.x + 10, self.y + 10, x, y)
+  --self.dx = self.bullet_speed * math.sin(self.angle)
+  --self.dy = self.bullet_speed * math.cos(self.angle)
+
+  --self.x = self.x + self.width/2 + math.sin(self.angle) * 25
+  --self.y = self.y + self.height/2 + math.cos(self.angle) * 25
 end
 
 -----------------------------------------------------
@@ -53,7 +66,7 @@ function Player:handleInput(dt)
     if     other.class == 'Upgrade' then
       return 'cross'
     elseif other.class == 'Enemy'   then 
-      return 'touch'
+      return 'cross'
     elseif other.class == 'Bullet'  then 
       return 'cross'
     --elseif other.isSpring then return 'bounce'
@@ -73,7 +86,7 @@ function Player:handleInput(dt)
     if(distance(x, y, self.x + offsetX, self.y + offsetY)) > 30 then
       for i = 1, self.bullet_amt do
         self.area:addGameObject('Bullet', self.x + 5, self.y + 5, 
-        {6, 6, x, y, 800}, 'player_bullet')
+        {6, 6, x, y, 650}, 'player_bullet')
       end
     end
   end
@@ -119,7 +132,6 @@ function Player:upgrade(upgrade_object)
   end
   self.area:addGameObject('Notify', self.x - 50, self.y - 20, {"+10", 20, 5, 0.4})
 end
-
 
 function Player:outOfBounds()
   if self.y > window_height or self.y < 0 then

@@ -17,5 +17,6 @@ return {
   require 'objects/Enemy',
   require 'objects/Notify',
 
-  require 'rooms/Stage'
+  require 'rooms/Stage',
+  require 'rooms/Menu'
 }

@@ -6,7 +6,6 @@ function Bullet:new(area, x, y, opts)
   Bullet.super.new(self, area, x, y, opts)
   self.opts = opts or {100, 0, 0, 0}
 
-
   self.width = opts[1] or 8
   self.height = opts[2] or 8
 
@@ -36,8 +35,10 @@ function Bullet:update(dt)
   end
 
   local function filter(item, other)
-    --if other.class == "Bullet" then return "cross" end
-    return "cross"
+    if other.class == "Upgrade" then return "cross" end
+    if other.class == "Player" then return "cross" end
+    if other.class == "player_bullet" then return "cross" end
+    return "touch"
   end
 
   if not self.dead then
@@ -49,6 +50,12 @@ function Bullet:update(dt)
     )
     self.x = actualX
     self.y = actualY
+
+    for i = 1, len do
+      print('bullet hit enemy')
+      obj = cols[i].other
+      if obj.class == "Enemy" then self.dead = true end
+    end
   end
 
   --[[
@@ -62,7 +69,7 @@ function Bullet:draw()
   love.graphics.setColor(255, 255, 255)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
   love.graphics.setColor(255, 255, 255, 50)
-  love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
+  love.graphics.rectangle('fill', self.x, self.y, 
                           self.width - 1, self.height - 1)
   love.graphics.setColor(255, 255, 255)
 end

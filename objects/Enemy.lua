@@ -24,7 +24,7 @@ function Enemy:update(dt)
   Enemy.super.update(self, dt)
 
   -- pathfinding
-  self:moveEnemy(self.target_player.dead, dt)
+  self:moveEnemy(dt)
 end
 
 function Enemy:draw()
@@ -37,7 +37,7 @@ function Enemy:draw()
 end
 
 -- **TODO** Figure out the clusterfuck that is collision
-function Enemy:moveEnemy(player_dead, dt)
+function Enemy:moveEnemy(dt)
   if self.target_player then
     if self.target_player.x + 10 > self.x + offsetX then
       self.goalX = self.goalX + self.speed
@@ -57,7 +57,7 @@ function Enemy:moveEnemy(player_dead, dt)
     return "slide"
   end
 
-  if not self.dead then
+  if not self.dead and self.target_player then
     local actualX, actualY, cols, len = self.area.world:move(
       self.collider, 
       self.goalX, 
@@ -72,9 +72,11 @@ function Enemy:moveEnemy(player_dead, dt)
       if obj.class == "player_bullet" then 
         self.dead = true 
         self.target_player.score = self.target_player.score + 1
-        self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"+1", 20, 5, 0.4})
+        self.area:addGameObject('Notify', self.x, self.y, {"+1", 20, 5, 0.4})
       end
-      if obj.class == "Player" then obj.dead = true end
+      if obj.class == "Player" then 
+        obj.dead = true 
+      end
     end
   end
 end
