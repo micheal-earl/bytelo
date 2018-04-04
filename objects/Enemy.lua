@@ -67,7 +67,7 @@ function Enemy:moveEnemy(dt)
     self.x, self.y = actualX, actualY
 
     for i = 1, len do
-      print('enemy collide ' .. tostring(cols[i].other.class))
+      --print('enemy collide ' .. tostring(cols[i].other.class))
       obj = cols[i].other
       if obj.class == "player_bullet" then 
         self.dead = true 

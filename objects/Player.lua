@@ -15,11 +15,12 @@ function Player:new(area, x, y, opts)
   -- movement stuff
   self.vx, self.vy = 0, 0
   self.speed = 300
-  self.decay = 60
+  self.decay = 5
 
   -- gun stuff
   self.bullet_amt = 1
   self.fire_rate = 0.4
+  self.bullet_speed = 600
   self.ups = 0
 
   -- test stuff
@@ -79,14 +80,24 @@ function Player:handleInput(dt)
   self.x, self.y = actualX, actualY
 
   -- **TODO** Fix fire rate bug
-  if input:down('mouse1', self.fire_rate)  then
+  if input:pressed('mouse1', self.fire_rate)  then
     local x, y = love.mouse.getPosition()
-    print(self.fire_rate)
     -- this if statement removes super saiyan cheese
     if(distance(x, y, self.x + offsetX, self.y + offsetY)) > 30 then
       for i = 1, self.bullet_amt do
-        self.area:addGameObject('Bullet', self.x + 5, self.y + 5, 
-        {6, 6, x, y, 650}, 'player_bullet')
+        self.area:addGameObject(
+          'Bullet', 
+          self.x + 5, 
+          self.y + 5, 
+          {
+            6, 
+            6, 
+            x + random(-10, 10), 
+            y + random(-10, 10), 
+            self.bullet_speed
+          }, 
+          'player_bullet'
+        )
       end
     end
   end
@@ -124,13 +135,51 @@ function Player:upgrade(upgrade_object)
   upgrade_object.dead = true
   self.ups = self.ups - 1
   self.score = self.score + 10
-  if self.fire_rate > 0.06 then 
-    self.fire_rate = self.fire_rate - 0.05 
-    self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"Fire rate up!", 30})
-  else
-    self.area:addGameObject('Notify', self.x - 100, self.y - 50, {"Max fire rate!", 30})
+  local rnd = math.ceil(random(0, 2))
+  if rnd == 1 then
+    if self.decay < 60 then 
+      self.decay = self.decay + 5 -- reflex
+      print("decay: " .. self.decay)
+      self.area:addGameObject(
+        'Notify', 
+        self.x - 100,
+        self.y - 50, 
+        {"Reflexes up!", 30}
+        )
+    else
+      self.area:addGameObject(
+        'Notify', 
+        self.x - 100, 
+        self.y - 50, 
+        {"Reflexes are maxed!", 30}
+      )
+    end
   end
-  self.area:addGameObject('Notify', self.x - 50, self.y - 20, {"+10", 20, 5, 0.4})
+  if rnd == 2 then
+    if self.bullet_speed < 1000 then 
+      self.bullet_speed = self.bullet_speed + 50
+      print("bullet_speed: " .. self.bullet_speed)
+      self.area:addGameObject(
+        'Notify', 
+        self.x - 150,
+        self.y - 75, 
+        {"Bullet speed up!", 30}
+        )
+    else
+      self.area:addGameObject(
+        'Notify', 
+        self.x - 150, 
+        self.y - 75, 
+        {"Bullet speed is maxed!", 30}
+      )
+    end
+  end
+  self.area:addGameObject(
+    'Notify', 
+    self.x - 50, 
+    self.y - 20, 
+    {"+10", 20, 5, 0.4}
+  )
 end
 
 function Player:outOfBounds()

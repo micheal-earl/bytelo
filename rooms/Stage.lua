@@ -7,7 +7,7 @@ function Stage:new()
   self.area:addPhysicsWorld()
   self.enemy_speed = 1
   timer:every(10, function()
-     self.enemy_speed = self.enemy_speed + 1 
+     self.enemy_speed = self.enemy_speed + 0.5 
      self.area:addGameObject(
        'Notify', 
        0,
@@ -57,7 +57,7 @@ function Stage:update(dt)
   end
 
   -- spawn enemies randomly in each quadrant
-  local rand = math.ceil(random(150)) -- **TODO** turn on enemy spawn
+  local rand = math.ceil(random(200)) -- **TODO** turn on enemy spawn
   if rand == 1 then
     self.area:addGameObject(
       'Enemy', 

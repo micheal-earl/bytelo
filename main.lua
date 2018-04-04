@@ -45,7 +45,7 @@ function love.load(arg) -- take arg for debug
   -- initialize our current room to nil
   current_room = nil
   gotoRoom('Menu')
-  timer:every(0.8, function() print(math.ceil(random(9)) .. " -------------") end)
+  --timer:every(0.8, function() print(math.ceil(random(9)) .. " -------------") end)
 
   love.graphics.setBackgroundColor(20, 20, 20)
 end
