@@ -71,8 +71,8 @@ function Enemy:moveEnemy(dt)
       obj = cols[i].other
       if obj.class == "player_bullet" then 
         self.dead = true 
-        self.target_player.score = self.target_player.score + 1
-        self.area:addGameObject('Notify', self.x, self.y, {"+1", 20, 5, 0.4})
+        self.target_player.score = self.target_player.score + 1 * g_score_multiplier
+        self.area:addGameObject('Notify', self.x, self.y, {"+"..1*g_score_multiplier, 20, 5, 0.4})
       end
       if obj.class == "Player" then 
         obj.dead = true 

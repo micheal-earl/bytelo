@@ -15,6 +15,16 @@ function Menu:new(previous_score, highest_score)
 
   self.buttonX, self.buttonY = self.buttonX - self.buttonW/2, self.buttonY - self.buttonH/2
 
+  testButton = Button(
+    "wow test button", 
+    1366/2, 
+    200, 
+    function()
+      g_speed = g_speed + 50
+      print(g_speed)
+    end
+  )
+
 end
 
 function Menu:update(dt)
@@ -24,6 +34,7 @@ function Menu:update(dt)
       gotoRoom('Stage')
     end
   end
+  testButton:update()
 end
 
 function Menu:draw()
@@ -49,6 +60,7 @@ function Menu:draw()
     )
   end
   love.graphics.setFont(default_font)
+  testButton:draw()
   --[[
   if self.highest_score > 0 then
     love.graphics.printf(self.highest_score, 0, 150, 1000, "center")

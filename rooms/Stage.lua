@@ -20,6 +20,7 @@ function Stage:new()
   self.player = self.area:addGameObject('Player', window_width/2, window_height/2)
   -- **TODO** centralize score system, too many things are keeping track of it
   self.score = 0
+
 end
 
 function Stage:update(dt)
@@ -57,7 +58,25 @@ function Stage:update(dt)
   end
 
   -- spawn enemies randomly in each quadrant
-  local rand = math.ceil(random(200)) -- **TODO** turn on enemy spawn
+  self:spawnEnemies(2000)
+end
+
+function Stage:draw()
+  self.area:draw()
+  love.graphics.setColor(255, 255, 255, 200)
+  --love.graphics.print("WASD or arrow keys to move", 10, 10)
+  --love.graphics.print("Mouse1 to shoot", 10, 25)
+  love.graphics.print("reflex = " .. self.player.decay, 10, 10)
+  love.graphics.print("bullet speed = " .. self.player.bullet_speed, 10, 25)
+  love.graphics.print("movement speed = " .. self.player.speed, 10, 40)
+  love.graphics.print("score multiplier = " .. self.player.score_multiplier, 10, 55)
+  love.graphics.print("Score: " .. self.player.score, 10, 70)
+end
+
+function Stage:spawnEnemies(probability)
+  -- spawn enemies randomly in each quadrant
+
+  local rand = math.ceil(random(probability))
   if rand == 1 then
     self.area:addGameObject(
       'Enemy', 
@@ -87,13 +106,4 @@ function Stage:update(dt)
       {self.enemy_speed}
     )
   end
-end
-
-function Stage:draw()
-  self.area:draw()
-  love.graphics.setColor(255, 255, 255, 200)
-  love.graphics.print("WASD or arrow keys to move", 10, 10)
-  love.graphics.print("Mouse1 to shoot", 10, 25)
-  love.graphics.print("R to return to menu", 10, 40)
-  love.graphics.print("Score: " .. self.player.score, 10, 55)
 end

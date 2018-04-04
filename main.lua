@@ -14,6 +14,16 @@ function love.load(arg) -- take arg for debug
   -- Are different every time the game is run
   love.math.setRandomSeed(os.time())
 
+  -- GLOBALS track player/stage state
+  -- **TODO** refactor these variables so they are handled by objects
+  g_difficulty = 0
+  g_stage_achieved = 0 -- **TODO** tell playr highest stage reached
+  g_score = 0
+  g_bullet_speed = 600
+  g_speed = 300
+  g_decay = 5
+  g_score_multiplier = 2
+
   -- instantiate libs into variables
   timer = Timer()
   camera = Camera()
@@ -60,7 +70,7 @@ function love.update(dt)
   end
   --
   if input:pressed('r') then
-    gotoRoom('Menu')
+    gotoRoom('UpgradeRoom')
   end
   --]]
 

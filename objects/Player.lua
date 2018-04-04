@@ -14,13 +14,15 @@ function Player:new(area, x, y, opts)
 
   -- movement stuff
   self.vx, self.vy = 0, 0
-  self.speed = 300
-  self.decay = 5
 
-  -- gun stuff
+  -- STATS
+  self.speed = g_speed
+  self.decay = g_decay -- higher decay = tigher controls
+
   self.bullet_amt = 1
   self.fire_rate = 0.4
-  self.bullet_speed = 600
+  self.bullet_speed = g_bullet_speed
+  self.score_multiplier = g_score_multiplier
   self.ups = 0
 
   -- test stuff
@@ -33,7 +35,10 @@ end
 
 function Player:update(dt)
   Player.super.update(self, dt)
-  if not self.dead then self:handleInput(dt) end
+  if not self.dead then 
+    self:handleInput(dt) 
+    self:saveState()
+  end
 end
 
 function Player:draw()
@@ -122,7 +127,7 @@ function Player:handleInput(dt)
 		self.vx = self.vx - self.decay
   end
 
-  -- **TODO** handle collision in it's own function?
+  -- **TODO** handle collision in its own function?
   for i = 1, len do
     print('collide ' .. tostring(cols[i].other.class))
     obj = cols[i].other
@@ -134,7 +139,7 @@ end
 function Player:upgrade(upgrade_object)
   upgrade_object.dead = true
   self.ups = self.ups - 1
-  self.score = self.score + 10
+  self.score = self.score + 10 * g_score_multiplier
   local rnd = math.ceil(random(0, 2))
   if rnd == 1 then
     if self.decay < 60 then 
@@ -178,7 +183,7 @@ function Player:upgrade(upgrade_object)
     'Notify', 
     self.x - 50, 
     self.y - 20, 
-    {"+10", 20, 5, 0.4}
+    {"+"..10*g_score_multiplier, 20, 5, 0.4}
   )
 end
 
@@ -190,4 +195,12 @@ function Player:outOfBounds()
   else
     return false
   end
+end
+
+function Player:saveState()
+  g_score = self.score
+  g_bullet_speed = self.bullet_speed
+  g_speed = self.speed
+  g_decay = self.decay
+  g_score_multiplier = self.score_multiplier
 end

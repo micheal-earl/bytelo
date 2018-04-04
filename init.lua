@@ -16,7 +16,9 @@ return {
   require 'objects/Upgrade',
   require 'objects/Enemy',
   require 'objects/Notify',
+  require 'objects/Button',
 
   require 'rooms/Stage',
-  require 'rooms/Menu'
+  require 'rooms/Menu',
+  require 'rooms/UpgradeRoom'
 }

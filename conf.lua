@@ -3,7 +3,7 @@ window_height = 768
 
 function love.conf(t)
   t.version = "0.10.2"
-  --t.console = true
+  t.console = true
 
   t.window.title = "Bytelo"
   t.window.icon = "resources/ico.png"
