@@ -3,35 +3,55 @@ Object = require '../lib/classic/classic'
 UpgradeRoom = Object:extend()
 
 function UpgradeRoom:new()
-  self.buttons = {
-    button1 = Button(
-      "speed", 
-      1366/2, 
-      200, 
-      function()
-        g_speed = g_speed + 50
-        print("New speed " .. g_speed)
-      end
-    ),
-    button2 = Button(
-      "bullet speed", 
-      1366/2, 
-      400, 
-      function()
-        g_bullet_speed = g_bullet_speed + 50
-        print("New bullet speed " .. g_bullet_speed)
-      end
-    ),
-    button3 = Button(
-      "reflex", 
-      1366/2, 
-      600, 
-      function()
-        g_decay = g_decay + 5
-        print("New decay " .. g_decay)
-      end
-    )
-  }
+  self.name = "UpgradeRoom"
+  timer:after(1, function() 
+    self.buttons = {
+      button1 = Button(
+        "speed", 
+        1366/2, 
+        150, 
+        function()
+          g_speed = g_speed + 50
+          print("New speed " .. g_speed)
+          gotoRoom('Stage')
+        end,
+        40
+      ),
+      button2 = Button(
+        "bullet speed", 
+        1366/2, 
+        300, 
+        function()
+          g_bullet_speed = g_bullet_speed + 50
+          print("New bullet speed " .. g_bullet_speed)
+          gotoRoom('Stage')
+        end,
+        40
+      ),
+      button3 = Button(
+        "reflex", 
+        1366/2, 
+        450, 
+        function()
+          g_decay = g_decay + 5
+          print("New decay " .. g_decay)
+          gotoRoom('Stage')
+        end,
+        40
+      ),
+      button4 = Button(
+        "score multiplier", 
+        1366/2, 
+        600, 
+        function()
+          g_score_multiplier = g_score_multiplier + 1
+          print("New multiplier " .. g_score_multiplier)
+          gotoRoom('Stage')
+        end,
+        40
+      )
+    }
+  end)
 end
 
 function UpgradeRoom:update(dt)
@@ -41,9 +61,12 @@ function UpgradeRoom:update(dt)
     print("wtf")
   end
   --]]
-  self.buttons.button1:update()
-  self.buttons.button2:update()
-  self.buttons.button3:update()
+  if self.buttons then
+    self.buttons.button1:update()
+    self.buttons.button2:update()
+    self.buttons.button3:update()
+    self.buttons.button4:update()
+  end
 end
 
 function UpgradeRoom:draw()
@@ -52,7 +75,10 @@ function UpgradeRoom:draw()
     button:draw()
   end
   -]]
-  self.buttons.button1:draw()
-  self.buttons.button2:draw()
-  self.buttons.button3:draw()
+  if self.buttons then
+    self.buttons.button1:draw()
+    self.buttons.button2:draw()
+    self.buttons.button3:draw()
+    self.buttons.button4:draw()
+  end
 end

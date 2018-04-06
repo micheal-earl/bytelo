@@ -2,8 +2,8 @@ Object = require '../lib/classic/classic'
 
 Button = Object:extend()
 
-function Button:new(text, buttonX, buttonY, func, ...)
-  self.font = love.graphics.newFont(50)
+function Button:new(text, buttonX, buttonY, func, fontsize)
+  self.font = love.graphics.newFont(fontsize)
   self.button = love.graphics.newText(self.font, text)
   self.buttonW, self.buttonH = self.button:getDimensions()
   self.buttonX, self.buttonY = buttonX, buttonY

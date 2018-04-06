@@ -2,10 +2,7 @@ Object = require '../lib/classic/classic'
 
 Menu = Object:extend()
 
-function Menu:new(previous_score, highest_score)
-  self.previous_score = previous_score or 0
-  self.highest_score = highest_score or 0
-
+function Menu:new()
   self.scoreFont = love.graphics.newFont(25)
 
   self.font = love.graphics.newFont(50)
@@ -14,17 +11,6 @@ function Menu:new(previous_score, highest_score)
   self.buttonX, self.buttonY = 1366/2, 768/2
 
   self.buttonX, self.buttonY = self.buttonX - self.buttonW/2, self.buttonY - self.buttonH/2
-
-  testButton = Button(
-    "wow test button", 
-    1366/2, 
-    200, 
-    function()
-      g_speed = g_speed + 50
-      print(g_speed)
-    end
-  )
-
 end
 
 function Menu:update(dt)
@@ -34,7 +20,6 @@ function Menu:update(dt)
       gotoRoom('Stage')
     end
   end
-  testButton:update()
 end
 
 function Menu:draw()
@@ -48,11 +33,11 @@ function Menu:draw()
   )
   love.graphics.setColor(20, 20, 20)
   love.graphics.draw(self.playButton, self.buttonX, self.buttonY)
-  if self.previous_score > 0 then
+  if g_score > 0 then
     love.graphics.setColor(255, 255, 255, 200)
     love.graphics.setFont(self.scoreFont)
     love.graphics.printf(
-      "Previous score: " .. self.previous_score, 
+      "Previous score: " .. g_score, 
       self.buttonX - 7, 
       self.buttonY + 70, 
       1000, 
@@ -60,7 +45,6 @@ function Menu:draw()
     )
   end
   love.graphics.setFont(default_font)
-  testButton:draw()
   --[[
   if self.highest_score > 0 then
     love.graphics.printf(self.highest_score, 0, 150, 1000, "center")

@@ -17,7 +17,7 @@ function Player:new(area, x, y, opts)
 
   -- STATS
   self.speed = g_speed
-  self.decay = g_decay -- higher decay = tigher controls
+  self.decay = g_decay -- higher decay = tighter controls
 
   self.bullet_amt = 1
   self.fire_rate = 0.4

@@ -22,7 +22,7 @@ function love.load(arg) -- take arg for debug
   g_bullet_speed = 600
   g_speed = 300
   g_decay = 5
-  g_score_multiplier = 2
+  g_score_multiplier = 1
 
   -- instantiate libs into variables
   timer = Timer()
@@ -65,14 +65,21 @@ function love.update(dt)
   if current_room then current_room:update(dt) end
 
   if current_room.player and current_room.player.dead == true then 
-    local previous_score = current_room.score
-    gotoRoom('Menu', previous_score, highest_score) 
+    gotoRoom('Menu') 
   end
-  --
-  if input:pressed('r') then
+
+  if g_score > 100 + g_difficulty then
+    g_score = 0
+    g_difficulty = g_difficulty + 100
     gotoRoom('UpgradeRoom')
   end
-  --]]
+
+  if input:pressed('r') and not current_room.name then
+    gotoRoom('UpgradeRoom')
+  elseif input:pressed('r') then
+    gotoRoom('Menu')
+  end
+
 
   if input:pressed('f1') then
     print("Before collection: " .. collectgarbage("count")/1024)

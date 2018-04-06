@@ -58,7 +58,7 @@ function Stage:update(dt)
   end
 
   -- spawn enemies randomly in each quadrant
-  self:spawnEnemies(2000)
+  self:spawnEnemies(200)
 end
 
 function Stage:draw()
@@ -71,6 +71,8 @@ function Stage:draw()
   love.graphics.print("movement speed = " .. self.player.speed, 10, 40)
   love.graphics.print("score multiplier = " .. self.player.score_multiplier, 10, 55)
   love.graphics.print("Score: " .. self.player.score, 10, 70)
+  love.graphics.print("Target Score: " .. 100 + g_difficulty, 10, 85)
+  love.graphics.print("FPS: " .. love.timer.getFPS(), 1300, 10)
 end
 
 function Stage:spawnEnemies(probability)
