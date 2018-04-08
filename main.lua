@@ -2,6 +2,7 @@ local Object = require 'lib/classic/classic'
 local Input = require 'lib/input/Input'
 local Timer = require 'lib/hump/timer'
 local Camera = require 'lib/hump/camera'
+local Vector = require 'lib/hump/vector-light'
 local Bump = require 'lib/bump/bump'
 local Moses = require 'lib/moses/moses'
 require "init"
@@ -22,11 +23,12 @@ function love.load(arg) -- take arg for debug
   g_bullet_speed = 600
   g_speed = 300
   g_decay = 5
-  g_score_multiplier = 5
+  g_score_multiplier = 1
 
   -- instantiate libs into variables
   timer = Timer()
   camera = Camera()
+  vector = Vector
   physics = Bump
   moses = Moses
   input = Input()
@@ -51,6 +53,7 @@ function love.load(arg) -- take arg for debug
   love.mouse.setCursor(cursor)
 
   default_font = love.graphics.newFont(12)
+  big_font = love.graphics.newFont(36)
 
   -- initialize our current room to nil
   current_room = nil

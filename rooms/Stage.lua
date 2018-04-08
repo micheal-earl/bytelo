@@ -58,7 +58,7 @@ function Stage:update(dt)
   end
 
   -- spawn enemies randomly in each quadrant
-  self:spawnEnemies(200)
+  self:spawnEnemies(0)
 end
 
 function Stage:draw()

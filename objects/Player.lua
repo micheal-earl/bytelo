@@ -56,13 +56,9 @@ end
 
 function Player:drawGun()
   local x, y = love.mouse.getPosition()
-  local angle = math.atan2((x - self.x), (y - self.y))
-  love.graphics.line(self.x + 10, self.y + 10, x, y)
-  --self.dx = self.bullet_speed * math.sin(self.angle)
-  --self.dy = self.bullet_speed * math.cos(self.angle)
-
-  --self.x = self.x + self.width/2 + math.sin(self.angle) * 25
-  --self.y = self.y + self.height/2 + math.cos(self.angle) * 25
+  print(vector.str(vector.add(x,y, vector.trim(10, x, y))))
+  tx, ty = vector.mul(x,y, vector.trim(10, x, y))--vector.add(x, y))
+  love.graphics.line(self.x + 10, self.y + 10, tx, ty)
 end
 
 -----------------------------------------------------
@@ -75,7 +71,6 @@ function Player:handleInput(dt)
       return 'cross'
     elseif other.class == 'Bullet'  then 
       return 'cross'
-    --elseif other.isSpring then return 'bounce'
     end
     --return "cross"
   end
@@ -140,47 +135,6 @@ function Player:upgrade(upgrade_object)
   upgrade_object.dead = true
   self.ups = self.ups - 1
   self.score = self.score + 10 * g_score_multiplier
-  local rnd = math.ceil(random(0, 2))
-  --[[
-  if rnd == 1 then
-    if self.decay < 60 then 
-      self.decay = self.decay + 5 -- reflex
-      print("decay: " .. self.decay)
-      self.area:addGameObject(
-        'Notify', 
-        self.x - 100,
-        self.y - 50, 
-        {"Reflexes up!", 30}
-        )
-    else
-      self.area:addGameObject(
-        'Notify', 
-        self.x - 100, 
-        self.y - 50, 
-        {"Reflexes are maxed!", 30}
-      )
-    end
-  end
-  if rnd == 2 then
-    if self.bullet_speed < 1000 then 
-      self.bullet_speed = self.bullet_speed + 50
-      print("bullet_speed: " .. self.bullet_speed)
-      self.area:addGameObject(
-        'Notify', 
-        self.x - 150,
-        self.y - 75, 
-        {"Bullet speed up!", 30}
-        )
-    else
-      self.area:addGameObject(
-        'Notify', 
-        self.x - 150, 
-        self.y - 75, 
-        {"Bullet speed is maxed!", 30}
-      )
-    end
-  end
-  --]]
   self.area:addGameObject(
     'Notify', 
     self.x - 50, 
