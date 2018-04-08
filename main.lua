@@ -22,7 +22,7 @@ function love.load(arg) -- take arg for debug
   g_bullet_speed = 600
   g_speed = 300
   g_decay = 5
-  g_score_multiplier = 1
+  g_score_multiplier = 5
 
   -- instantiate libs into variables
   timer = Timer()
@@ -71,6 +71,7 @@ function love.update(dt)
   if g_score > 100 + g_difficulty then
     g_score = 0
     g_difficulty = g_difficulty + 100
+    g_stage_achieved = g_stage_achieved + 1
     gotoRoom('UpgradeRoom')
   end
 
@@ -79,7 +80,6 @@ function love.update(dt)
   elseif input:pressed('r') then
     gotoRoom('Menu')
   end
-
 
   if input:pressed('f1') then
     print("Before collection: " .. collectgarbage("count")/1024)

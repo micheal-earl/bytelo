@@ -4,14 +4,14 @@ UpgradeRoom = Object:extend()
 
 function UpgradeRoom:new()
   self.name = "UpgradeRoom"
-  timer:after(1, function() 
+  timer:after(0.6, function() 
     self.buttons = {
       button1 = Button(
         "speed", 
         1366/2, 
         150, 
         function()
-          g_speed = g_speed + 50
+          g_speed = g_speed + 100
           print("New speed " .. g_speed)
           gotoRoom('Stage')
         end,
@@ -22,7 +22,7 @@ function UpgradeRoom:new()
         1366/2, 
         300, 
         function()
-          g_bullet_speed = g_bullet_speed + 50
+          g_bullet_speed = g_bullet_speed + 100
           print("New bullet speed " .. g_bullet_speed)
           gotoRoom('Stage')
         end,
@@ -33,7 +33,7 @@ function UpgradeRoom:new()
         1366/2, 
         450, 
         function()
-          g_decay = g_decay + 5
+          g_decay = g_decay + 10
           print("New decay " .. g_decay)
           gotoRoom('Stage')
         end,

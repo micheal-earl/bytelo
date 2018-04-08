@@ -141,6 +141,7 @@ function Player:upgrade(upgrade_object)
   self.ups = self.ups - 1
   self.score = self.score + 10 * g_score_multiplier
   local rnd = math.ceil(random(0, 2))
+  --[[
   if rnd == 1 then
     if self.decay < 60 then 
       self.decay = self.decay + 5 -- reflex
@@ -179,6 +180,7 @@ function Player:upgrade(upgrade_object)
       )
     end
   end
+  --]]
   self.area:addGameObject(
     'Notify', 
     self.x - 50, 

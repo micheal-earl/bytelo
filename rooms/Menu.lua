@@ -3,6 +3,9 @@ Object = require '../lib/classic/classic'
 Menu = Object:extend()
 
 function Menu:new()
+  self.stage_achieved = g_stage_achieved
+  g_stage_achieved = 0
+
   self.scoreFont = love.graphics.newFont(25)
 
   self.font = love.graphics.newFont(50)
@@ -37,7 +40,7 @@ function Menu:draw()
     love.graphics.setColor(255, 255, 255, 200)
     love.graphics.setFont(self.scoreFont)
     love.graphics.printf(
-      "Previous score: " .. g_score, 
+      "Highest Stage Achieved: " .. self.stage_achieved, 
       self.buttonX - 7, 
       self.buttonY + 70, 
       1000, 
