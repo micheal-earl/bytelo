@@ -60,7 +60,7 @@ function love.load(arg) -- take arg for debug
   gotoRoom('Menu')
   --timer:every(0.8, function() print(math.ceil(random(9)) .. " -------------") end)
 
-  love.graphics.setBackgroundColor(20, 20, 20)
+  love.graphics.setBackgroundColor(0.1, 0.1, 0.1)
 end
 
 function love.update(dt)

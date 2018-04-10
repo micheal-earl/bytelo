@@ -63,7 +63,7 @@ end
 
 function Stage:draw()
   self.area:draw()
-  love.graphics.setColor(255, 255, 255, 200)
+  love.graphics.setColor(1, 1, 1, 0.8)
   --love.graphics.print("WASD or arrow keys to move", 10, 10)
   --love.graphics.print("Mouse1 to shoot", 10, 25)
   love.graphics.print("reflex = " .. self.player.decay, 10, 10)

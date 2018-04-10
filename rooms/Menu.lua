@@ -26,7 +26,7 @@ function Menu:update(dt)
 end
 
 function Menu:draw()
-  love.graphics.setColor(255, 255, 255, 200)
+  love.graphics.setColor(1, 1, 1, 0.8)
   love.graphics.rectangle(
     'fill', 
     self.buttonX - 5, 
@@ -34,10 +34,10 @@ function Menu:draw()
     self.buttonW + 10, 
     self.buttonH + 10
   )
-  love.graphics.setColor(20, 20, 20)
+  love.graphics.setColor(0.1, 0.1, 0.1)
   love.graphics.draw(self.playButton, self.buttonX, self.buttonY)
   if g_score > 0 then
-    love.graphics.setColor(255, 255, 255, 200)
+    love.graphics.setColor(1, 1, 1, 0.8)
     love.graphics.setFont(self.scoreFont)
     love.graphics.printf(
       "Highest Stage Achieved: " .. self.stage_achieved, 

@@ -40,14 +40,10 @@ function Upgrade:update(dt)
 end
 
 function Upgrade:draw()
-  love.graphics.setColor(0, 223, 0)
+  love.graphics.setColor(0, 0.9, 0)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
-  love.graphics.setColor(0, 223, 0, 50)
-  -- draw cross
-  love.graphics.line(self.x + 8, self.y + 5, self.x + 8, self.y + 11)
-  love.graphics.line(self.x + 5, self.y + 8, self.x + 11, self.y + 8)
-  
+  love.graphics.setColor(0, 0.9, 0, 0.2)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
                           self.width - 1, self.height - 1)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 end

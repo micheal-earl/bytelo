@@ -65,11 +65,11 @@ function Bullet:update(dt)
 end
 
 function Bullet:draw()
-  --if self.class == 'player_bullet' then love.graphics.setColor(0, 255, 0) end
-  love.graphics.setColor(255, 255, 255)
+  --if self.class == 'player_bullet' then love.graphics.setColor(0, 1, 0) end
+  love.graphics.setColor(1, 1, 1)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
-  love.graphics.setColor(255, 255, 255, 50)
+  love.graphics.setColor(1, 1, 1, 0.5)
   love.graphics.rectangle('fill', self.x, self.y, 
                           self.width - 1, self.height - 1)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 end

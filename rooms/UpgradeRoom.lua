@@ -85,7 +85,7 @@ function UpgradeRoom:draw()
     self.buttons.button3:draw()
     self.buttons.button4:draw()
   end
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   love.graphics.setFont(big_font)
   love.graphics.print("Pick an upgrade", 1366/2-145, 100)
   love.graphics.setFont(default_font)

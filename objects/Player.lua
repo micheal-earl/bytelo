@@ -42,23 +42,23 @@ function Player:update(dt)
 end
 
 function Player:draw()
-  love.graphics.setColor(0, 255, 255)
+  love.graphics.setColor(0, 1, 1)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
   --love.graphics.line(self.x, self.y, self.x + 20, self.y + 20)
-  love.graphics.setColor(255, 255, 255, 25)
+  love.graphics.setColor(1, 1, 1, 0.1)
   self:drawGun()
   -- draw inside
-  love.graphics.setColor(0, 255, 255, 50)
+  love.graphics.setColor(0, 1, 1, 0.2)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
                           self.width - 1, self.height - 1)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 end
 
 function Player:drawGun()
   local x, y = love.mouse.getPosition()
-  print(vector.str(vector.add(x,y, vector.trim(10, x, y))))
-  tx, ty = vector.mul(x,y, vector.trim(10, x, y))--vector.add(x, y))
-  love.graphics.line(self.x + 10, self.y + 10, tx, ty)
+  print(vector.str(vector.trim(10, x, y)))
+  dx, dy = vector.trim(10, x, y)
+  --love.graphics.line(self.x + 10, self.y + 10, dx, dy)
 end
 
 -----------------------------------------------------

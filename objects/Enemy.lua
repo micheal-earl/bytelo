@@ -28,12 +28,12 @@ function Enemy:update(dt)
 end
 
 function Enemy:draw()
-  love.graphics.setColor(255, 0, 0)
+  love.graphics.setColor(1, 0, 0)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
-  love.graphics.setColor(255, 0, 0, 50)
+  love.graphics.setColor(1, 0, 0, 0.2)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
                           self.width - 1, self.height - 1)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
 end
 
 -- **TODO** Figure out the clusterfuck that is collision
