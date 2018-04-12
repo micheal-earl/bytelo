@@ -1,7 +1,3 @@
-local Object = require '../lib/classic/classic'
-local Timer = require '../lib/hump/timer'
-require '../lib/utils'
-
 GameObject = Object:extend()
 
 function GameObject:new(area, x, y, opts)
@@ -13,8 +9,9 @@ function GameObject:new(area, x, y, opts)
   self.area = area
   self.x, self.y = x, y
   self.id = UUID()
+  self.creation_time = love.timer.getTime()
+  self.timer = Timer()
   self.dead = false
-  self.Timer = Timer()
 end
 
 function GameObject:update(dt)
@@ -23,4 +20,11 @@ end
 
 function GameObject:draw()
 
+end
+
+function GameObject:destroy()
+  self.timer = nil
+  if self.collider then self.area.world:remove(self) end
+  self.collider = nil
+  self.dead = true
 end

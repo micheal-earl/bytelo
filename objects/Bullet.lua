@@ -1,5 +1,3 @@
-local Object = require '../lib/classic/classic'
-
 Bullet = GameObject:extend()
 
 function Bullet:new(area, x, y, opts)
@@ -9,7 +7,7 @@ function Bullet:new(area, x, y, opts)
   self.width = opts[1] or 8
   self.height = opts[2] or 8
 
-  -- vector math
+  -- math
   self.goalX = opts[3] or 0
   self.goalY = opts[4] or 0
 
@@ -50,26 +48,18 @@ function Bullet:update(dt)
     )
     self.x = actualX
     self.y = actualY
-
-    for i = 1, len do
-      print('bullet hit enemy')
-      obj = cols[i].other
-      if obj.class == "Enemy" then self.dead = true end
-    end
   end
 
-  --[[
-  self.x = self.x + (self.dx * dt)
-  self.y = self.y + (self.dy * dt)
-  --]]
 end
 
 function Bullet:draw()
-  --if self.class == 'player_bullet' then love.graphics.setColor(0, 1, 0) end
   love.graphics.setColor(1, 1, 1)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
   love.graphics.setColor(1, 1, 1, 0.5)
-  love.graphics.rectangle('fill', self.x, self.y, 
-                          self.width - 1, self.height - 1)
+  love.graphics.rectangle('fill', self.x, self.y, self.width - 1, self.height - 1)
   love.graphics.setColor(1, 1, 1)
+end
+
+function Bullet:destroy()
+
 end

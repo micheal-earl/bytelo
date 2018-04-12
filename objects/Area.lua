@@ -1,25 +1,15 @@
-local Object = require '../lib/classic/classic'
-
 Area = Object:extend()
 
 function Area:new(room)
-  self.world = physics.newWorld()
-
   self.room = room
   self.game_objects = {}
 end
 
 function Area:update(dt)
-  --if self.world then self.world:update(dt) end
-
   for i = #self.game_objects, 1, -1 do
     local game_object = self.game_objects[i]
     if game_object.dead then 
-      if self.world:hasItem(game_object) then
-        self.world:remove(game_object.collider)
-      else
-        --print("Not a physics object")
-      end
+      game_object:destroy()
       table.remove(self.game_objects, i) 
     end
     game_object:update(dt)
@@ -27,9 +17,20 @@ function Area:update(dt)
 end
 
 function Area:draw()
-  --if self.world then self.world:draw() end
-
   for _, game_object in ipairs(self.game_objects) do game_object:draw(dt) end
+end
+
+function Area:destroy()
+  for i = #self.game_objects, 1, -1 do
+    local game_object = self.game_objects[i]
+    game_object:destroy()
+    table.remove(self.game_objects, i)
+  end
+  self.game_objects = {}
+
+  if self.world then
+    self.world = nil
+  end
 end
 
 function Area:addGameObject(game_object_type, x, y, opts, class)
@@ -48,8 +49,8 @@ function Area:addPhysicsWorld()
 end
 
 function Area:queryCircleArea(x, y, radius, object_types)
-  -- Create empty table for output
   local output = {}
+  
   -- for every game_object in the table game_objects
   for _, game_object in ipairs(self.game_objects) do
     -- if that game_object.class property is equal to one of
@@ -65,7 +66,7 @@ function Area:queryCircleArea(x, y, radius, object_types)
       end
     end
   end
-  -- return our output table with the newly added objects
+
   return output
 end
 

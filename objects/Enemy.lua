@@ -1,17 +1,13 @@
-local Object = require '../lib/classic/classic'
-
 Enemy = GameObject:extend()
 
 function Enemy:new(area, x, y, opts)
   Enemy.super.new(self, area, x, y, opts)
   self.speed = opts[1] or 1
-  self.width = opts[2] or 34
-  self.height = opts[3] or 34
+  self.width = opts[2] or 40
+  self.height = opts[3] or 40
 
   self.vx, self.vy = 20, 20
   self.goalX, self.goalY = self.x, self.y
-
-  -- test stuffdw
 
   -- physics
   self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
@@ -22,8 +18,6 @@ end
 
 function Enemy:update(dt)
   Enemy.super.update(self, dt)
-
-  -- pathfinding
   self:moveEnemy(dt)
 end
 
@@ -31,9 +25,12 @@ function Enemy:draw()
   love.graphics.setColor(1, 0, 0)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
   love.graphics.setColor(1, 0, 0, 0.2)
-  love.graphics.rectangle('fill', self.x + 1, self.y + 1, 
-                          self.width - 1, self.height - 1)
+  love.graphics.rectangle('fill', self.x + 1, self.y + 1, self.width - 1, self.height - 1)
   love.graphics.setColor(1, 1, 1)
+end
+
+function Enemy:destroy()
+  Enemy.super.destroy(self)
 end
 
 -- **TODO** Figure out the clusterfuck that is collision
@@ -67,15 +64,12 @@ function Enemy:moveEnemy(dt)
     self.x, self.y = actualX, actualY
 
     for i = 1, len do
-      --print('enemy collide ' .. tostring(cols[i].other.class))
       obj = cols[i].other
       if obj.class == "player_bullet" then 
-        self.dead = true 
-        self.target_player.score = self.target_player.score + 1 * g_score_multiplier
-        self.area:addGameObject('Notify', self.x, self.y, {"+"..1*g_score_multiplier, 20, 5, 0.4})
+        self:destroy()
       end
       if obj.class == "Player" then 
-        obj.dead = true 
+        obj:destroy()
       end
     end
   end

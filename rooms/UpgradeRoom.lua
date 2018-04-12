@@ -1,5 +1,3 @@
-Object = require '../lib/classic/classic'
-
 UpgradeRoom = Object:extend()
 
 function UpgradeRoom:new()
