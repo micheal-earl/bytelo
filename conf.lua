@@ -2,7 +2,7 @@ window_width = 1366
 window_height = 768
 
 function love.conf(t)
-  --t.version = "0.11.0"
+  t.version = "11.0"
   t.console = true
 
   t.window.title = "Bytelo"

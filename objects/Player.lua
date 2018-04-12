@@ -45,7 +45,7 @@ function Player:draw()
   love.graphics.setColor(0, 1, 1)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
   --love.graphics.line(self.x, self.y, self.x + 20, self.y + 20)
-  love.graphics.setColor(1, 1, 1, 0.1)
+  love.graphics.setColor(1, 1, 1, 0.6)
   self:drawGun()
   -- draw inside
   love.graphics.setColor(0, 1, 1, 0.2)
@@ -57,8 +57,8 @@ end
 function Player:drawGun()
   local x, y = love.mouse.getPosition()
   print(vector.str(vector.trim(10, x, y)))
-  dx, dy = vector.trim(10, x, y)
-  --love.graphics.line(self.x + 10, self.y + 10, dx, dy)
+  print(angle)
+  love.graphics.line(self.x + 10, self.y + 10, vector.trim(10, x, y))
 end
 
 -----------------------------------------------------
@@ -89,13 +89,7 @@ function Player:handleInput(dt)
           'Bullet', 
           self.x + 5, 
           self.y + 5, 
-          {
-            6, 
-            6, 
-            x + random(-10, 10), 
-            y + random(-10, 10), 
-            self.bullet_speed
-          }, 
+          {6, 6, x, y, self.bullet_speed}, 
           'player_bullet'
         )
       end
