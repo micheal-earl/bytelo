@@ -67,6 +67,7 @@ function Enemy:moveEnemy(dt)
       obj = cols[i].other
       if obj.class == "player_bullet" then 
         self:destroy()
+        obj:destroy()
       end
       if obj.class == "Player" then 
         obj:destroy()

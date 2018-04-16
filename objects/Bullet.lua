@@ -22,7 +22,6 @@ function Bullet:new(area, x, y, opts)
 
   -- physics
   self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
-
 end
 
 function Bullet:update(dt)
@@ -61,5 +60,5 @@ function Bullet:draw()
 end
 
 function Bullet:destroy()
-
+  Bullet.super.destroy(self)
 end
