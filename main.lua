@@ -13,8 +13,7 @@ require "init"
 require 'utils'
 
 function love.load()
-  -- Randomize the seed so that random functions
-  -- Are different every time the game is run
+  -- randomize our starting seed to make every run unique
   love.math.setRandomSeed(os.time())
 
   -- global vars for the libs
