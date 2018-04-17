@@ -36,6 +36,7 @@ function love.load()
   input:bind('a'     ,   'left')
   input:bind('s'     ,   'down')
   input:bind('d'     ,  'right')
+  input:bind('f'     ,      'f')
   
   -- change the cursor to a small white crosshair
   cursor = love.mouse.newCursor('/resources/crosshair.png', 8, 8)

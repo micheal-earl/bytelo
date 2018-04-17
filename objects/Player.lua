@@ -17,6 +17,9 @@ function Player:new(area, x, y, opts)
   self.speed = 300
   self.decay = 50 -- higher decay = tighter controls
 
+  self.attack_delay = 0.3
+  self.last_attack= 0
+
   -- test stuff
   self.offsetX = self.width/2
   self.offsetY = self.height/2
@@ -85,13 +88,11 @@ function Player:handleInput(dt)
   local actualX, actualY, cols, len = self.area.world:move(self, goalX, goalY, filter)
   self.x, self.y = actualX, actualY
 
-  -- **TODO** Fix fire rate bug
-  if input:pressed('mouse1')  then
-    self:shoot()
-  end
+  -- **TODO** Fix the input library workaround so we can use input:down('mouse1')
+  if love.mouse.isDown(1) then self:shoot() end
 
   -- handles moving the player object
-	if input:down('up')        then self.vy = -self.speed
+  if input:down('up')        then self.vy = -self.speed
 	elseif input:down('down')  then self.vy = self.speed
 	elseif(self.vy < 0)        then self.vy = self.vy + self.decay
   elseif(self.vy > 0)        then self.vy = self.vy - self.decay end
@@ -111,9 +112,25 @@ end
 
 function Player:shoot()
   local x, y = love.mouse.getPosition()
-  -- this if statement removes super saiyan cheese
-  if(distance(x, y, self.x + self.offsetX, self.y + self.offsetY)) > 30 then
-    self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800}, 'player_bullet')
+
+  local function fireRate()
+    local cur_time = os.clock()
+    
+    if self.last_attack + self.attack_delay <= cur_time then
+      print(cur_time)
+      return true, cur_time
+    end
+  end
+
+  local can_attack, cur_time = fireRate()
+
+  if can_attack then
+    self.last_attack = cur_time
+
+    -- this if statement removes super saiyan cheese
+    if(distance(x, y, self.x + self.offsetX, self.y + self.offsetY)) > 30 then
+      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800}, 'player_bullet')
+    end
   end
 end
 
