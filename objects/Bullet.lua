@@ -1,6 +1,8 @@
 Bullet = GameObject:extend()
 
 function Bullet:new(area, x, y, opts)
+  -- **TODO** Fix bullet centering bug, make bullets perform
+  -- math on center of rectangle instead of on top left corner
   Bullet.super.new(self, area, x, y, opts)
   self.opts = opts or {100, 0, 0, 0}
 
@@ -17,6 +19,8 @@ function Bullet:new(area, x, y, opts)
   self.dx = self.bullet_speed * math.sin(self.angle)
   self.dy = self.bullet_speed * math.cos(self.angle)
 
+  -- the * 25 is the offset from our player. This makes bullets
+  -- spawn outside the player object instead of center of player
   self.x = self.x + self.width/2 + math.sin(self.angle) * 25
   self.y = self.y + self.height/2 + math.cos(self.angle) * 25
 
@@ -47,15 +51,24 @@ function Bullet:update(dt)
     )
     self.x = actualX
     self.y = actualY
-  end
 
+    for i = 1, len do
+      obj = cols[i].other
+      if obj.class == "Enemy" then 
+        self:destroy()
+        obj:destroy()
+      end
+    end
+  end
 end
 
 function Bullet:draw()
   love.graphics.setColor(1, 1, 1)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+
   love.graphics.setColor(1, 1, 1, 0.5)
   love.graphics.rectangle('fill', self.x, self.y, self.width - 1, self.height - 1)
+
   love.graphics.setColor(1, 1, 1)
 end
 

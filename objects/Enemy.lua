@@ -3,11 +3,15 @@ Enemy = GameObject:extend()
 function Enemy:new(area, x, y, opts)
   Enemy.super.new(self, area, x, y, opts)
   self.speed = opts[1] or 1
-  self.width = opts[2] or 40
-  self.height = opts[3] or 40
+  self.width = opts[2] or 30
+  self.height = opts[3] or 30
 
   self.vx, self.vy = 20, 20
   self.goalX, self.goalY = self.x, self.y
+
+  -- test stuff
+  self.offsetX = self.width/2
+  self.offsetY = self.height/2
 
   -- physics
   self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
@@ -24,8 +28,10 @@ end
 function Enemy:draw()
   love.graphics.setColor(1, 0, 0)
   love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+
   love.graphics.setColor(1, 0, 0, 0.2)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, self.width - 1, self.height - 1)
+
   love.graphics.setColor(1, 1, 1)
 end
 
@@ -35,15 +41,16 @@ end
 
 -- **TODO** Figure out the clusterfuck that is collision
 function Enemy:moveEnemy(dt)
+
   if self.target_player then
-    if self.target_player.x + 10 > self.x + offsetX then
+    if self.target_player.x + 10 > self.x + self.offsetX then
       self.goalX = self.goalX + self.speed
-    elseif self.target_player.x + 10 < self.x + offsetX then
+    elseif self.target_player.x + 10 < self.x + self.offsetX then
       self.goalX = self.goalX - self.speed
     end
-    if self.target_player.y + 10 > self.y + offsetY then
+    if self.target_player.y + 10 > self.y + self.offsetY then
       self.goalY = self.goalY + self.speed
-    elseif self.target_player.y + 10 < self.y + offsetY then
+    elseif self.target_player.y + 10 < self.y + self.offsetY then
       self.goalY = self.goalY - self.speed
     end
   end

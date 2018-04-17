@@ -15,11 +15,11 @@ function Player:new(area, x, y, opts)
 
   -- STATS
   self.speed = 300
-  self.decay = 60 -- higher decay = tighter controls
+  self.decay = 50 -- higher decay = tighter controls
 
   -- test stuff
-  offsetX = self.width/2
-  offsetY = self.height/2
+  self.offsetX = self.width/2
+  self.offsetY = self.height/2
 end
 
 function Player:update(dt)
@@ -41,12 +41,30 @@ function Player:draw()
   love.graphics.setColor(0, 1, 1, 0.2)
   love.graphics.rectangle('fill', self.x + 1, self.y + 1, self.width - 1, self.height - 1)
 
+  -- draw player gun
+  self:drawGun()
+
   -- reset to default color
   love.graphics.setColor(1, 1, 1)
 end
 
 function Player:destroy()
   Player.super.destroy(self)
+end
+
+function Player:drawGun(len)
+  local mouseX, mouseY = love.mouse.getPosition()
+  local playerX, playerY = self.x + self.offsetX, self.y + self.offsetY
+
+  local gun_length = 18
+
+  local angle = math.atan2((mouseX - playerX), (mouseY - playerY))
+
+  local goalX = playerX + math.sin(angle) * gun_length
+  local goalY = playerY + math.cos(angle) * gun_length
+
+  love.graphics.setColor(0, 1, 1)
+  love.graphics.line(playerX, playerY, goalX, goalY)
 end
 
 function Player:handleInput(dt)
@@ -94,8 +112,8 @@ end
 function Player:shoot()
   local x, y = love.mouse.getPosition()
   -- this if statement removes super saiyan cheese
-  if(distance(x, y, self.x + offsetX, self.y + offsetY)) > 30 then
-    self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 750}, 'player_bullet')
+  if(distance(x, y, self.x + self.offsetX, self.y + self.offsetY)) > 30 then
+    self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800}, 'player_bullet')
   end
 end
 
