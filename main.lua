@@ -53,7 +53,7 @@ function love.load()
   gotoRoom('Stage')
 
   -- change the background color of the canvas
-  love.graphics.setBackgroundColor(0.1, 0.1, 0.1)
+  love.graphics.setBackgroundColor(0.25, 0.25, 0.25)
 
   -- garbage collection toggle flag
   mem_flag = false
@@ -86,6 +86,7 @@ function love.update(dt)
 end
 
 function love.draw()
+  -- **TODO** Fix drawing layering system (make stuff not draw on top of the wrong things), this is probably going to take a while
   -- if we are in a room, update it
   if current_room then current_room:draw() end
 end

@@ -39,7 +39,7 @@ function Enemy:destroy()
   Enemy.super.destroy(self)
 end
 
--- **TODO** Figure out the clusterfuck that is collision
+-- **TODO** Fix enemy collision so they don't go flying out of the group when nearby enemies are killed
 function Enemy:moveEnemy(dt)
 
   if self.target_player then

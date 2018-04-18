@@ -18,7 +18,7 @@ function Player:new(area, x, y, opts)
   self.decay = 50 -- higher decay = tighter controls
 
   self.attack_delay = 0.3
-  self.last_attack= 0
+  self.last_attack = 0
 
   -- test stuff
   self.offsetX = self.width/2
@@ -56,7 +56,7 @@ function Player:destroy()
 end
 
 function Player:drawGun(len)
-  local mouseX, mouseY = love.mouse.getPosition()
+  local mouseX, mouseY = current_room.camera:mousePosition()
   local playerX, playerY = self.x + self.offsetX, self.y + self.offsetY
 
   local gun_length = 18
@@ -111,13 +111,13 @@ function Player:handleInput(dt)
 end
 
 function Player:shoot()
-  local x, y = love.mouse.getPosition()
+  -- we have to get the cameras mousePosition otherwise things break
+  local x, y = current_room.camera:mousePosition()
 
   local function fireRate()
     local cur_time = os.clock()
     
     if self.last_attack + self.attack_delay <= cur_time then
-      print(cur_time)
       return true, cur_time
     end
   end
