@@ -1,5 +1,6 @@
 Enemy = GameObject:extend()
 
+-- **TODO** Rewrite entire Enemy class, implement state machine/simple AI
 function Enemy:new(area, x, y, opts)
   Enemy.super.new(self, area, x, y, opts)
   self.speed = opts[1] or 1
@@ -23,6 +24,7 @@ end
 function Enemy:update(dt)
   Enemy.super.update(self, dt)
   self:moveEnemy(dt)
+  if self:isOutOfBounds() then self:destroy() end
 end
 
 function Enemy:draw()
@@ -80,5 +82,15 @@ function Enemy:moveEnemy(dt)
         obj:destroy()
       end
     end
+  end
+end
+
+function Enemy:isOutOfBounds()
+  if self.y > 1200 or self.y < -1200 then
+    return true
+  elseif self.x > 1500 or self.x < -1500 then
+    return true
+  else
+    return false
   end
 end

@@ -53,7 +53,7 @@ function love.load()
   gotoRoom('Stage')
 
   -- change the background color of the canvas
-  love.graphics.setBackgroundColor(0.25, 0.25, 0.25)
+  love.graphics.setBackgroundColor(0.2, 0.2, 0.2)
 
   -- garbage collection toggle flag
   mem_flag = false

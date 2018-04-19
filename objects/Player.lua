@@ -78,8 +78,10 @@ function Player:handleInput(dt)
       return 'cross'
     elseif other.class == 'Enemy'   then 
       return 'slide'
-    elseif other.class == 'Bullet'  then 
+    elseif other.class == 'player_bullet'  then 
       return 'cross'
+    else
+      return 'slide'
     end
   end
 
