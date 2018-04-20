@@ -39,7 +39,7 @@ function Stage:update(dt)
 
   -- **TODO** fix coordinate system
   local dx, dy = self.player.x - self.camera.x, self.player.y - self.camera.y
-  self.camera:move(dx/3, dy/3) -- /3 determines camera "stickiness"
+  self.camera:move(dx/2, dy/2) -- /3 determines camera "stickiness"
   --print(self.camera.x.." "..self.camera.y)
 
   -- delete the last object added to the stage

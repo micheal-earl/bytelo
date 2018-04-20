@@ -3,7 +3,6 @@ Bullet = GameObject:extend()
 function Bullet:new(area, x, y, opts)
   -- **TODO** Fix bullet centering bug, make bullets perform math on center of rectangle instead of on top left corner
   Bullet.super.new(self, area, x, y, opts)
-  self.opts = opts or {100, 0, 0, 0}
 
   self.width = opts[1] or 8
   self.height = opts[2] or 8
@@ -14,20 +13,27 @@ function Bullet:new(area, x, y, opts)
 
   self.bullet_speed = opts[5] or 100
 
+  -- change our angle in radians
+  self.angle_modifier = opts[6] or 0
+
+  -- **TODO** bytepath exercise 88, middle bullet originates further ahead needs fix
+  self.offset = opts[7] or 0
+
   self.angle = math.atan2((self.goalX - self.x), (self.goalY - self.y))
+  self.angle = self.angle + self.angle_modifier
   self.dx = self.bullet_speed * math.sin(self.angle)
   self.dy = self.bullet_speed * math.cos(self.angle)
 
   -- the * 28 is the offset from our player. This makes bullets
   -- spawn outside the player object instead of center of player
-  self.x = self.x + self.width/2 + math.sin(self.angle) * 28
-  self.y = self.y + self.height/2 + math.cos(self.angle) * 28
+  self.x = self.x + math.sin(self.angle + self.offset) * 28
+  self.y = self.y + math.cos(self.angle + self.offset) * 28
 
   -- physics
   self.collider = self.area.world:add(self, self.x, self.y, self.width, self.height)
 
   -- destory bullet object after 5 seconds
-  self.timer:after(5, function() self:destroy() end)
+  self.timer:after(2, function() self:destroy() end)
 end
 
 function Bullet:update(dt)

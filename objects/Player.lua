@@ -17,7 +17,7 @@ function Player:new(area, x, y, opts)
   self.speed = 300
   self.decay = 50 -- higher decay = tighter controls
 
-  self.attack_delay = 0.3
+  self.attack_delay = 0.1
   self.last_attack = 0
 
   -- test stuff
@@ -132,6 +132,8 @@ function Player:shoot()
     -- this if statement removes super saiyan cheese
     if(distance(x, y, self.x + self.offsetX, self.y + self.offsetY)) > 30 then
       self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800}, 'player_bullet')
+      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, 0.3, 0}, 'player_bullet')
+      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, -0.3, -0}, 'player_bullet')
     end
   end
 end
