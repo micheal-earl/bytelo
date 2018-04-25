@@ -4,6 +4,7 @@ function Stage:new()
   self.area = Area(self)
   self.area:addPhysicsWorld()
 
+  -- **TODO** Make a wall object or something
   walls = {
     --
     -- main walls
