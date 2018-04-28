@@ -17,7 +17,7 @@ function Player:new(area, x, y, opts)
   self.speed = 300
   self.decay = 50 -- higher decay = tighter controls
 
-  self.attack_delay = 0.1
+  self.attack_delay = 0.2
   self.last_attack = 0
 
   -- test stuff
@@ -52,7 +52,14 @@ function Player:draw()
 end
 
 function Player:destroy()
+  self:die()
   Player.super.destroy(self)
+end
+
+function Player:die()
+  for i = 1, love.math.random(8, 12) do 
+    self.area:addGameObject('ExplodeParticle', self.x + 10, self.y + 10, {color={0,1,1,0.8}}) 
+  end
 end
 
 function Player:drawGun(len)
@@ -107,7 +114,9 @@ function Player:handleInput(dt)
   -- **TODO** handle collision in its own function?
   for i = 1, len do
     obj = cols[i].other
-    if obj.class == "Enemy" then self.dead = true end
+    if obj.class == "Enemy" then
+      self:destroy()
+    end
     if obj.class == "Upgrade" then self:upgrade(obj) end
   end
 end
@@ -133,8 +142,8 @@ function Player:shoot()
     -- this if statement removes super saiyan cheese
     if(distance(x, y, self.x + self.offsetX, self.y + self.offsetY)) > 30 then
       self.area:addGameObject('Bullet', self.x + 10, self.y + 10, {6, 6, x, y, 800}, 'player_bullet')
-      --self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, 0.3, 0}, 'player_bullet')
-      --self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, -0.3, -0}, 'player_bullet')
+      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, 0.3, 0}, 'player_bullet')
+      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, -0.3, -0}, 'player_bullet')
     end
   end
 end

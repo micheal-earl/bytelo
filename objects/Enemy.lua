@@ -38,6 +38,10 @@ function Enemy:draw()
 end
 
 function Enemy:destroy()
+  -- **TODO** Figure out why I can't access self.area from an Enemy:die() function
+  for i = 1, love.math.random(8, 12) do 
+    self.area:addGameObject('ExplodeParticle', self.x + 15, self.y + 15, {color={1,0,0,0.8}}) 
+  end
   Enemy.super.destroy(self)
 end
 

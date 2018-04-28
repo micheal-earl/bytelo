@@ -67,14 +67,9 @@ function Bullet:update(dt)
         --self.area:addGameObject('ShootEffect', self.x + 4, self.y + 4)
         self:destroy()
         obj:destroy()
+      elseif obj.class == "Wall" then
+        self:destroy()
       end
-      self.area:addGameObject(
-        'ShootEffect', 
-        self.x + 4, 
-        self.y - 28,
-        {self.x, self.y, 20}
-      )
-      self:destroy()
     end
   end
 end
@@ -93,5 +88,11 @@ function Bullet:draw()
 end
 
 function Bullet:destroy()
+  self.area:addGameObject(
+    'ShootEffect', 
+    self.x + 4, 
+    self.y - 28,
+    {self.x, self.y, 16}
+  )
   Bullet.super.destroy(self)
 end

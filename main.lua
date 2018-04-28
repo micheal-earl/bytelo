@@ -12,6 +12,8 @@ moses   = require 'lib/moses/moses'
 require "init"
 require 'utils'
 
+-- **TODO** Fix every object to properly utilize the opts parameter
+
 function love.load()
   -- randomize our starting seed to make every run unique
   love.math.setRandomSeed(os.time())

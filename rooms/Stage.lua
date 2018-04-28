@@ -4,25 +4,10 @@ function Stage:new()
   self.area = Area(self)
   self.area:addPhysicsWorld()
 
-  -- **TODO** Make a wall object or something
-  walls = {
-    --
-    -- main walls
-		{x = -300, y = -300, w = 1500, h = 50},
-		{x = -300, y = -300, w = 50, h = 1500},
-		{x = 1200, y = -300, w = 50, h = 1500},
-    {x = -300, y = 1200, w = 1550, h = 50},
-    -- outer boundary
-    {x = -1000, y = -1000, w = 3000, h = 1000},
-		{x = -1000, y = -1000, w = 1000, h = 3000},
-		{x = 1250, y = -300, w = 1000, h = 3000},
-    {x = -300, y = 1200, w = 3000, h = 1000},
-    --]]
-  }
-  
-  for i = 1, #walls do
-		self.area.world:add(walls[i], walls[i].x, walls[i].y, walls[i].w, walls[i].h)
-	end
+  self.area:addGameObject('Wall', -500, -800, {w=2400,h=1000})
+  self.area:addGameObject('Wall', -500, 0, {w=1000,h=1400})
+  self.area:addGameObject('Wall', -500, 1200, {w=2600,h=1000})
+  self.area:addGameObject('Wall', 2000, -800, {w=1400,h=2600})
 
   -- spawn our self.player and set him to a variable for easy access
   self.player = self.area:addGameObject('Player', window_width/2, window_height/2)
@@ -41,7 +26,8 @@ function Stage:update(dt)
 
   -- delete the last object added to the stage
   if input:pressed('f4') then
-    self.area.game_objects[#self.area.game_objects].dead = true
+    self.player:destroy()
+    --self.area.game_objects[#self.area.game_objects].dead = true
   end
 
   -- manually spawn an enemy with mouse2
@@ -65,11 +51,8 @@ function Stage:draw()
   self.camera:attach() -- camera attach/detach must be in draw function
   self.area:draw()
   love.graphics.setColor(1, 0, 1)
-  love.graphics.print("FPS: " .. love.timer.getFPS(), self.camera:worldCoords(1366/2, 20))
+  --love.graphics.print("FPS: " .. love.timer.getFPS(), self.camera:worldCoords(1366/2, 20))
   love.graphics.setColor(0.6, 0.6, 0.6)
-	for i = 1, #walls do
-		love.graphics.rectangle('fill', walls[i].x, walls[i].y, walls[i].w, walls[i].h)
-	end
   self.camera:detach()
 end
 
