@@ -4,7 +4,7 @@ function Stage:new()
   self.area = Area(self)
   self.area:addPhysicsWorld()
 
-  self.area:addGameObject('Wall', -500, -800, {w=2400,h=1000})
+  self.area:addGameObject('Wall', -500, -800, {w=2600,h=1000})
   self.area:addGameObject('Wall', -500, 0, {w=1000,h=1400})
   self.area:addGameObject('Wall', -500, 1200, {w=2600,h=1000})
   self.area:addGameObject('Wall', 2000, -800, {w=1400,h=2600})
@@ -62,7 +62,7 @@ function Stage:destroy()
 end
 
 function Stage:spawnEnemy()
-  local rand = love.math.random(400)
+  local rand = love.math.random(200)
   if rand == 1 then
     self.area:addGameObject(
       'Enemy', 

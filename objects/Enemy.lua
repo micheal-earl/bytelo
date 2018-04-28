@@ -90,9 +90,9 @@ function Enemy:moveEnemy(dt)
 end
 
 function Enemy:isOutOfBounds()
-  if self.y > 1200 or self.y < -1200 then
+  if self.y > 1400 or self.y < -1400 then
     return true
-  elseif self.x > 1500 or self.x < -1500 then
+  elseif self.x > 2000 or self.x < -1700 then
     return true
   else
     return false

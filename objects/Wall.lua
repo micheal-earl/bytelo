@@ -16,6 +16,6 @@ function Wall:update(dt)
 end
 
 function Wall:draw()
-  love.graphics.setColor(0.6, 0.6, 0.6)
+  love.graphics.setColor(0.3, 0.3, 0.33)
   love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
 end
