@@ -36,14 +36,6 @@ function Stage:update(dt)
     self.area:addGameObject('Enemy', x, y)
   end
 
-  -- **TODO** remove or repurpose out of bounds code
-  -- make sure self.player stays within the screens dimensions
-  if self.player:isOutOfBounds() then
-    --print("oob")
-    --self.player.x = window_width/2
-    --self.player.y = window_height/2
-  end
-
   self:spawnEnemy()
 end
 
@@ -62,7 +54,7 @@ function Stage:destroy()
 end
 
 function Stage:spawnEnemy()
-  local rand = love.math.random(200)
+  local rand = love.math.random(50)
   if rand == 1 then
     self.area:addGameObject(
       'Enemy', 
