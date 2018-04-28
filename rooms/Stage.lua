@@ -17,9 +17,6 @@ function Stage:new()
 		{x = -1000, y = -1000, w = 1000, h = 3000},
 		{x = 1250, y = -300, w = 1000, h = 3000},
     {x = -300, y = 1200, w = 3000, h = 1000},
-    -- inner walls
-		{x = 350, y = 250, w = 200, h = 200},
-    {x = 250, y = 150, w = 200, h = 200}
     --]]
   }
   
@@ -31,7 +28,6 @@ function Stage:new()
   self.player = self.area:addGameObject('Player', window_width/2, window_height/2)
 
   self.camera = Camera(self.player.x, self.player.y)
-  --self.camera:attach()
 end
 
 function Stage:update(dt)
@@ -68,10 +64,9 @@ end
 function Stage:draw()
   self.camera:attach() -- camera attach/detach must be in draw function
   self.area:draw()
-  love.graphics.setColor(1, 1, 1)
-  love.graphics.print("FPS: " .. love.timer.getFPS(), 1366/2, 768/2 - 15)
-  love.graphics.print("ANCHOR", 1366/2, 768/2)
-  love.graphics.setColor(0.8, 0.8, 0.8)
+  love.graphics.setColor(1, 0, 1)
+  love.graphics.print("FPS: " .. love.timer.getFPS(), self.camera:worldCoords(1366/2, 20))
+  love.graphics.setColor(0.6, 0.6, 0.6)
 	for i = 1, #walls do
 		love.graphics.rectangle('fill', walls[i].x, walls[i].y, walls[i].w, walls[i].h)
 	end

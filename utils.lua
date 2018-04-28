@@ -23,3 +23,18 @@ end
 function distance(x1, y1, x2, y2)
     return math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))
 end
+
+function pushRotate(x, y, r)
+    love.graphics.push()
+    love.graphics.translate(x, y)
+    love.graphics.rotate(r or 0)
+    love.graphics.translate(-x, -y)
+end
+
+function pushRotateScale(x, y, r, sx, sy)
+    love.graphics.push()
+    love.graphics.translate(x, y)
+    love.graphics.rotate(r or 0)
+    love.graphics.scale(sx or 1, sy or sx or 1)
+    love.graphics.translate(-x, -y)
+end

@@ -64,19 +64,30 @@ function Bullet:update(dt)
     for i = 1, len do
       obj = cols[i].other
       if obj.class == "Enemy" then 
+        --self.area:addGameObject('ShootEffect', self.x + 4, self.y + 4)
         self:destroy()
         obj:destroy()
       end
+      self.area:addGameObject(
+        'ShootEffect', 
+        self.x + 4, 
+        self.y - 28,
+        {self.x, self.y, 20}
+      )
+      self:destroy()
     end
   end
 end
 
 function Bullet:draw()
   love.graphics.setColor(0, 1, 1)
-  love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+  --love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+  love.graphics.circle('fill', self.x, self.y, self.width - 3)
 
   love.graphics.setColor(0, 1, 1, 0.2)
-  love.graphics.rectangle('fill', self.x, self.y, self.width - 1, self.height - 1)
+  love.graphics.circle('line', self.x, self.y, self.width - 1)
+  --love.graphics.rectangle('fill', self.x, self.y, self.width - 1, self.height - 1)
+
 
   love.graphics.setColor(1, 1, 1)
 end

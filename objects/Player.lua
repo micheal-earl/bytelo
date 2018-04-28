@@ -128,12 +128,13 @@ function Player:shoot()
 
   if can_attack then
     self.last_attack = cur_time
+    self.area:addGameObject('ShootEffect', self.x + 10, self.y + 10, {x, y})
 
     -- this if statement removes super saiyan cheese
     if(distance(x, y, self.x + self.offsetX, self.y + self.offsetY)) > 30 then
-      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800}, 'player_bullet')
-      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, 0.3, 0}, 'player_bullet')
-      self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, -0.3, -0}, 'player_bullet')
+      self.area:addGameObject('Bullet', self.x + 10, self.y + 10, {6, 6, x, y, 800}, 'player_bullet')
+      --self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, 0.3, 0}, 'player_bullet')
+      --self.area:addGameObject('Bullet', self.x + 5, self.y + 5, {6, 6, x, y, 800, -0.3, -0}, 'player_bullet')
     end
   end
 end

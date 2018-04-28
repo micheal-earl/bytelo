@@ -3,6 +3,7 @@ return {
   require 'objects/Player',
   require 'objects/Area',
   require 'objects/Bullet',
+  require 'objects/ShootEffect',
   --require 'objects/Upgrade',
   require 'objects/Enemy',
   --require 'objects/Notify',
