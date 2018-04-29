@@ -8,10 +8,10 @@ function ExplodeParticle:new(area, x, y, opts)
   self.color = opts.color or {1, 1, 1}
   self.r = random(0, 2*math.pi)
   self.s = opts.s or random(1, 3)
-  self.v = opts.v or random(50, 200)
+  self.v = opts.v or random(50, 500)
   self.line_width = 3
   self.timer:tween(
-    opts.d or random(0.1, 0.5), 
+    opts.d or random(0.1, 0.7), 
     self, 
     {x = self.x + random(-30, 30), y = self.y + random(-30, 30), s = 0, v = self.v+1, line_width = 0}, 
     'linear',

@@ -17,6 +17,10 @@ function Player:new(area, x, y, opts)
   self.speed = 300
   self.decay = 50 -- higher decay = tighter controls
 
+  -- cycle feature
+  self.cycle_speed = 5
+  self.timer:every(self.cycle_speed, function() self:tick() end)
+
   self.attack_delay = 0.2
   self.last_attack = 0
 
@@ -32,17 +36,20 @@ function Player:update(dt)
   -- if player is not dead then handle input
   if not self.dead then 
     self:handleInput(dt) 
+    self.area:addGameObject('TrailParticle', self.x + 10, self.y + 10, {r=5})
   end
 end
 
 function Player:draw()
   -- draw border rectangle
   love.graphics.setColor(0, 1, 1)
-  love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+  --love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
+  love.graphics.circle('line', self.x + 10, self.y + 10, 10)
 
   -- draw inner rectangle
   love.graphics.setColor(0, 1, 1, 0.2)
-  love.graphics.rectangle('fill', self.x + 1, self.y + 1, self.width - 1, self.height - 1)
+  love.graphics.circle('fill', self.x + 10, self.y + 10, 9)
+  --love.graphics.rectangle('fill', self.x + 1, self.y + 1, self.width - 1, self.height - 1)
 
   -- draw player gun
   self:drawGun()
@@ -52,15 +59,24 @@ function Player:draw()
 end
 
 function Player:destroy()
-  slow(0.5, 1)
+  -- **TODO** Fix the slow utility function, broken for some reason
+  --slow(0.5, 1)
+  game_speed = 0.2
+  timer:after(0.5, function() game_speed = 1 end)
   self:die()
   Player.super.destroy(self)
 end
 
 function Player:die()
-  for i = 1, love.math.random(8, 12) do 
+  for i = 1, love.math.random(12, 15) do 
     self.area:addGameObject('ExplodeParticle', self.x + 10, self.y + 10, {color={0,1,1,0.8}}) 
   end
+end
+
+function Player:tick()
+  print("ticking")
+  --self.area:addGameObject('ShootEffect', self.x, self.y, {self.x, self.y, w=50, time=1})
+  -- Do something every 5 seconds
 end
 
 function Player:drawGun(len)

@@ -6,6 +6,7 @@ return {
   require 'objects/Bullet',
   require 'objects/ShootEffect',
   require 'objects/ExplodeParticle',
+  require 'objects/TrailParticle',
   --require 'objects/Upgrade',
   require 'objects/Enemy',
   --require 'objects/Notify',

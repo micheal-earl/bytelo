@@ -5,14 +5,15 @@ function ShootEffect:new(area, x, y, opts)
 
   self.goalX = opts[1] or self.x
   self.goalY = opts[2] or self.y
-  self.w = opts[3] or 6
+  self.w = opts.w or 6
+  self.time = opts.time or 0.15
 
   self.angle = math.atan2((self.goalX - self.x), (self.goalY - self.y))
   self.x = self.x + math.sin(self.angle) * 28
   self.y = self.y + math.cos(self.angle) * 28
 
   self.timer:tween(
-    0.15, 
+    self.time, 
     self, 
     {w = 0}, 
     'in-out-cubic', 
