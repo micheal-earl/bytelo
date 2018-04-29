@@ -7,6 +7,8 @@ function Enemy:new(area, x, y, opts)
   self.width = opts[2] or 30
   self.height = opts[3] or 30
 
+  self.depth = 49
+
   self.vx, self.vy = 20, 20
   self.goalX, self.goalY = self.x, self.y
 

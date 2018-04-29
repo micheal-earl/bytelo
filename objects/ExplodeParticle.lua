@@ -3,6 +3,9 @@ ExplodeParticle = GameObject:extend()
 function ExplodeParticle:new(area, x, y, opts)
   ExplodeParticle.super.new(self, area, x, y, opts)
 
+  -- draw layer
+  self.depth = 49
+
   self.x = self.x + random(-12, 12)
   self.y = self.y + random(-12, 12)
   self.color = opts.color or {1, 1, 1}

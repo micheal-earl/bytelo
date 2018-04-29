@@ -7,6 +7,7 @@ function GameObject:new(area, x, y, opts)
   if opts then for k, v in pairs(opts) do self[k] = v end end
   
   self.area = area
+  self.depth = 50
   self.x, self.y = x, y
   self.id = UUID()
   self.creation_time = love.timer.getTime()

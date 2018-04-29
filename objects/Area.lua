@@ -17,6 +17,15 @@ function Area:update(dt)
 end
 
 function Area:draw()
+  -- sort drawn objects by depth to provide a layering system
+  -- if two objects have the same depth, prioritize creation_time
+  table.sort(self.game_objects, function(a, b)
+    if a.depth == b.depth then
+      return a.creation_time < b.creation_time
+    end
+    return a.depth < b.depth
+  end)
+
   for _, game_object in ipairs(self.game_objects) do game_object:draw(dt) end
 end
 

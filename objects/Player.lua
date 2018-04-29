@@ -6,6 +6,9 @@ function Player:new(area, x, y, opts)
   -- physics
   self.collider = self.area.world:add(self, self.x, self.y, 20, 20)
 
+  -- draw layer
+  self.depth = 51
+
   -- shape
   self.width = 20
   self.height = 20
@@ -17,9 +20,22 @@ function Player:new(area, x, y, opts)
   self.speed = 300
   self.decay = 50 -- higher decay = tighter controls
 
+  self.max_hp = 100 -- **TODO** Actually use this ever
+  self.hp = max_hp
+
+  self.max_dashes = 10
+  self.dash = self.max_dashes
+
   -- cycle feature
   self.cycle_speed = 5
   self.timer:every(self.cycle_speed, function() self:tick() end)
+
+  -- allows the player to "dash" by adding 5 to self.dash every second
+  self.timer:every(1, function() 
+    if(self.dash < self.max_dashes) then
+      self.dash = self.dash + 5
+    end
+  end)
 
   self.attack_delay = 0.2
   self.last_attack = 0
@@ -130,9 +146,10 @@ function Player:handleInput(dt)
   
   -- **TODO** Change boost code to dash code, give an amount of dashes possible per amount of time
   -- code for boost
-  if input:down('space') then
+  if input:down('space') and self.dash > 0 then
     self.area:addGameObject('TrailParticle', self.x + 10, self.y + 10, {r=5})
     self.speed = 1200
+    self.dash = self.dash - 1
   else
     self.speed = 300
   end
