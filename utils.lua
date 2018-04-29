@@ -24,6 +24,11 @@ function distance(x1, y1, x2, y2)
     return math.sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))
 end
 
+function slow(amount, duration)
+    game_speed = amount
+    timer:tween('slow', duration, _G, {game_speed = 1}, 'in-out-cubic')
+end
+
 function pushRotate(x, y, r)
     love.graphics.push()
     love.graphics.translate(x, y)

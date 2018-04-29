@@ -52,6 +52,7 @@ function Player:draw()
 end
 
 function Player:destroy()
+  slow(0.5, 1)
   self:die()
   Player.super.destroy(self)
 end

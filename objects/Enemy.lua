@@ -3,7 +3,7 @@ Enemy = GameObject:extend()
 -- **TODO** Rewrite entire Enemy class, implement state machine/simple AI
 function Enemy:new(area, x, y, opts)
   Enemy.super.new(self, area, x, y, opts)
-  self.speed = opts[1] or 1
+  self.speed = opts[1] or 100
   self.width = opts[2] or 30
   self.height = opts[3] or 30
 
@@ -50,14 +50,14 @@ function Enemy:moveEnemy(dt)
 
   if self.target_player then
     if self.target_player.x + 10 > self.x + self.offsetX then
-      self.goalX = self.goalX + self.speed
+      self.goalX = self.goalX + self.speed*dt
     elseif self.target_player.x + 10 < self.x + self.offsetX then
-      self.goalX = self.goalX - self.speed
+      self.goalX = self.goalX - self.speed*dt
     end
     if self.target_player.y + 10 > self.y + self.offsetY then
-      self.goalY = self.goalY + self.speed
+      self.goalY = self.goalY + self.speed*dt
     elseif self.target_player.y + 10 < self.y + self.offsetY then
-      self.goalY = self.goalY - self.speed
+      self.goalY = self.goalY - self.speed*dt
     end
   end
 

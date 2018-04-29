@@ -18,6 +18,9 @@ function love.load()
   -- randomize our starting seed to make every run unique
   love.math.setRandomSeed(os.time())
 
+  -- variable to store speed the game moves at
+  game_speed = 1
+
   -- global vars for the libs
   timer  = Timer()
   camera = Camera()
@@ -39,6 +42,7 @@ function love.load()
   input:bind('s'     ,   'down')
   input:bind('d'     ,  'right')
   input:bind('f'     ,      'f')
+  input:bind('g'     ,      'g')
   
   -- change the cursor to a small white crosshair
   cursor = love.mouse.newCursor('/resources/crosshair.png', 8, 8)
@@ -63,15 +67,18 @@ end
 
 function love.update(dt)
   -- update the timer lib
-  timer:update(dt)
+  timer:update(dt*game_speed)
 
   -- if we are in a room, draw it
-  if current_room then current_room:update(dt) end
+  if current_room then current_room:update(dt*game_speed) end
 
   if input:pressed('f3') then
     current_room:destroy()
     gotoRoom('Stage')
   end
+
+  if input:pressed('f') then game_speed = 0.2 end
+  if input:pressed('g') then game_speed = 1 end
 
   -- garbage collection code
   if input:pressed('f1') then mem_flag = true end

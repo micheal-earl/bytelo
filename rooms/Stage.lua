@@ -43,7 +43,7 @@ function Stage:draw()
   self.camera:attach() -- camera attach/detach must be in draw function
   self.area:draw()
   love.graphics.setColor(1, 0, 1)
-  --love.graphics.print("FPS: " .. love.timer.getFPS(), self.camera:worldCoords(1366/2, 20))
+  love.graphics.print("FPS: " .. love.timer.getFPS(), self.camera:worldCoords(1366/2, 20))
   love.graphics.setColor(0.6, 0.6, 0.6)
   self.camera:detach()
 end
