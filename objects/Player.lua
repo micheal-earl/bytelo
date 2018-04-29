@@ -36,11 +36,11 @@ function Player:update(dt)
   -- if player is not dead then handle input
   if not self.dead then 
     self:handleInput(dt) 
-    self.area:addGameObject('TrailParticle', self.x + 10, self.y + 10, {r=5})
   end
 end
 
 function Player:draw()
+  -- **TODO** Figure out how I want to actually draw the player, circle square? etc
   -- draw border rectangle
   love.graphics.setColor(0, 1, 1)
   --love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
@@ -126,7 +126,16 @@ function Player:handleInput(dt)
 	if input:down('left')      then self.vx = -self.speed
 	elseif input:down('right') then self.vx = self.speed
 	elseif(self.vx < 0)        then self.vx = self.vx + self.decay
-	elseif(self.vx > 0)        then self.vx = self.vx - self.decay end
+  elseif(self.vx > 0)        then self.vx = self.vx - self.decay end
+  
+  -- **TODO** Change boost code to dash code, give an amount of dashes possible per amount of time
+  -- code for boost
+  if input:down('space') then
+    self.area:addGameObject('TrailParticle', self.x + 10, self.y + 10, {r=5})
+    self.speed = 1200
+  else
+    self.speed = 300
+  end
 
   -- **TODO** handle collision in its own function?
   for i = 1, len do
