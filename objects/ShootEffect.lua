@@ -3,6 +3,8 @@ ShootEffect = GameObject:extend()
 function ShootEffect:new(area, x, y, opts)
   ShootEffect.super.new(self, area, x, y, opts)
 
+  self.depth = 49
+
   self.goalX = opts[1] or self.x
   self.goalY = opts[2] or self.y
   self.w = opts.w or 6

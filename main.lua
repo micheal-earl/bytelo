@@ -34,6 +34,7 @@ function love.load()
   input:bind('mouse1', 'mouse1')
   input:bind('mouse2', 'mouse2')
   input:bind('space' ,  'space')
+  input:bind('lshift', 'lshift')
   input:bind('up'    ,     'up')
   input:bind('down'  ,   'down')
   input:bind('left'  ,   'left')
@@ -78,8 +79,13 @@ function love.update(dt)
     gotoRoom('Stage')
   end
 
-  if input:pressed('f') then game_speed = 0.2 end
-  if input:pressed('g') then game_speed = 1 end
+  --[[ **TODO** Make this toggle work
+  if input:down('lshift') then 
+    game_speed = 0.2 
+  else
+    game_speed = 1
+  end
+  --]]
 
   -- garbage collection code
   if input:pressed('f1') then mem_flag = true end
@@ -96,7 +102,6 @@ function love.update(dt)
 end
 
 function love.draw()
-  -- **TODO** Fix drawing layering system (make stuff not draw on top of the wrong things), this is probably going to take a while
   -- if we are in a room, update it
   if current_room then current_room:draw() end
 end
@@ -108,7 +113,6 @@ function gotoRoom(room_type, ...)
 end
 
 -- **TODO** remove this code that checks memory usage before production
--- **TODO** change this code to make it more readable
 function count_all(f)
   local seen = {}
 local count_table

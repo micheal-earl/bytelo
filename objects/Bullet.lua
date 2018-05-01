@@ -92,7 +92,7 @@ function Bullet:destroy()
     'ShootEffect', 
     self.x + 4, 
     self.y - 28,
-    {self.x, self.y, 16}
+    {self.x, self.y, w=8}
   )
   Bullet.super.destroy(self)
 end
