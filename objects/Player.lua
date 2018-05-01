@@ -23,11 +23,11 @@ function Player:new(area, x, y, opts)
   self.max_hp = 100 -- **TODO** Actually use this ever
   self.hp = max_hp
 
-  self.max_dashes = 10
+  self.max_dashes = 8
   self.dash = self.max_dashes
 
   -- cycle feature
-  self.cycle_speed = 5
+  self.cycle_speed = 4
   self.timer:every(self.cycle_speed, function() self:tick() end)
 
   -- allows the player to "dash" by adding 5 to self.dash every second
