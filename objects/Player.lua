@@ -17,6 +17,7 @@ function Player:new(area, x, y, opts)
   self.vx, self.vy = 0, 0
 
   -- STATS
+  -- **TODO** fix this so that speed doesn't need to be divisible by decay
   self.speed = 300
   self.decay = 50 -- higher decay = tighter controls
 
